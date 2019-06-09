@@ -10,7 +10,7 @@ Say goodbye to `TypeError: Cannot read property 'key' of undefinied`.
 
 ## Install
 
-`npm i --save SamuelSchepp/SafeJSON`
+`npm i --save SamuelSchepp/safe-json`
 
 ## Example
 ```typescript
