@@ -1,0 +1,136 @@
+(function webpackUniversalModuleDefinition(root, factory) {
+	if(typeof exports === 'object' && typeof module === 'object')
+		module.exports = factory();
+	else if(typeof define === 'function' && define.amd)
+		define([], factory);
+	else if(typeof exports === 'object')
+		exports["safe-json"] = factory();
+	else
+		root["safe-json"] = factory();
+})(this, function() {
+return /******/ (function(modules) { // webpackBootstrap
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
+/******/
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId]) {
+/******/ 			return installedModules[moduleId].exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			i: moduleId,
+/******/ 			l: false,
+/******/ 			exports: {}
+/******/ 		};
+/******/
+/******/ 		// Execute the module function
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/
+/******/ 		// Flag the module as loaded
+/******/ 		module.l = true;
+/******/
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/
+/******/
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = modules;
+/******/
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = installedModules;
+/******/
+/******/ 	// define getter function for harmony exports
+/******/ 	__webpack_require__.d = function(exports, name, getter) {
+/******/ 		if(!__webpack_require__.o(exports, name)) {
+/******/ 			Object.defineProperty(exports, name, { enumerable: true, get: getter });
+/******/ 		}
+/******/ 	};
+/******/
+/******/ 	// define __esModule on exports
+/******/ 	__webpack_require__.r = function(exports) {
+/******/ 		if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 			Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 		}
+/******/ 		Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 	};
+/******/
+/******/ 	// create a fake namespace object
+/******/ 	// mode & 1: value is a module id, require it
+/******/ 	// mode & 2: merge all properties of value into the ns
+/******/ 	// mode & 4: return value when already ns object
+/******/ 	// mode & 8|1: behave like require
+/******/ 	__webpack_require__.t = function(value, mode) {
+/******/ 		if(mode & 1) value = __webpack_require__(value);
+/******/ 		if(mode & 8) return value;
+/******/ 		if((mode & 4) && typeof value === 'object' && value && value.__esModule) return value;
+/******/ 		var ns = Object.create(null);
+/******/ 		__webpack_require__.r(ns);
+/******/ 		Object.defineProperty(ns, 'default', { enumerable: true, value: value });
+/******/ 		if(mode & 2 && typeof value != 'string') for(var key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
+/******/ 		return ns;
+/******/ 	};
+/******/
+/******/ 	// getDefaultExport function for compatibility with non-harmony modules
+/******/ 	__webpack_require__.n = function(module) {
+/******/ 		var getter = module && module.__esModule ?
+/******/ 			function getDefault() { return module['default']; } :
+/******/ 			function getModuleExports() { return module; };
+/******/ 		__webpack_require__.d(getter, 'a', getter);
+/******/ 		return getter;
+/******/ 	};
+/******/
+/******/ 	// Object.prototype.hasOwnProperty.call
+/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
+/******/
+/******/ 	// __webpack_public_path__
+/******/ 	__webpack_require__.p = "";
+/******/
+/******/
+/******/ 	// Load entry module and return exports
+/******/ 	return __webpack_require__(__webpack_require__.s = "./index.ts");
+/******/ })
+/************************************************************************/
+/******/ ({
+
+/***/ "./index.ts":
+/*!******************!*\
+  !*** ./index.ts ***!
+  \******************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+eval("\nObject.defineProperty(exports, \"__esModule\", { value: true });\nvar SafeJSON_1 = __webpack_require__(/*! ./lib/SafeJSON */ \"./lib/SafeJSON.ts\");\nexports.SafeJSON = SafeJSON_1.SafeJSON;\nvar Type_1 = __webpack_require__(/*! ./lib/Type */ \"./lib/Type.ts\");\nexports.Type = Type_1.Type;\n\n\n//# sourceURL=webpack://safe-json/./index.ts?");
+
+/***/ }),
+
+/***/ "./lib/SafeJSON.ts":
+/*!*************************!*\
+  !*** ./lib/SafeJSON.ts ***!
+  \*************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+eval("\nObject.defineProperty(exports, \"__esModule\", { value: true });\nvar Type_1 = __webpack_require__(/*! ./Type */ \"./lib/Type.ts\");\n/**\n * A wrapper for `any` with a safe access interface.\n */\nvar SafeJSON = /** @class */ (function () {\n    // Constructor\n    /**\n     * Default constructor to create the safe interface to `any`.\n     * @param object An object that is the result of a JSON parse or any literal.\n     */\n    function SafeJSON(object) {\n        this.raw = object;\n        if (SafeJSON.isString(object)) {\n            this.type = Type_1.Type.string;\n        }\n        else if (SafeJSON.isNumber(object)) {\n            this.type = Type_1.Type.number;\n        }\n        else if (SafeJSON.isBoolean(object)) {\n            this.type = Type_1.Type.boolean;\n        }\n        else if (SafeJSON.isArray(object)) {\n            this.type = Type_1.Type.array;\n        }\n        else if (SafeJSON.isDictionary(object)) {\n            this.type = Type_1.Type.dictionary;\n        }\n        else {\n            this.type = Type_1.Type.null;\n        }\n    }\n    // Custom initializer\n    /**\n     * Parses the json literal using `JSON.parse()`.\n     *\n     * If the JSON failed to parse, a valid `SafeJSON` object is still returned.\n     * The `type` property of this object has the value `Type.null`.\n     *\n     * Only use this, if the parse error can be ignored.\n     * This function does not throw.\n     *\n     * @param json A json string literal that should be parsed.\n     */\n    SafeJSON.parseJSON = function (json) {\n        try {\n            var data = JSON.parse(json);\n            return new SafeJSON(data);\n        }\n        catch (_a) {\n            return new SafeJSON(null);\n        }\n    };\n    // Helper functions\n    /**\n     * Returns true, if the given value is a native string.\n     * @param value The value to check.\n     */\n    SafeJSON.isString = function (value) {\n        return typeof value === \"string\" || value instanceof String;\n    };\n    /**\n     * Returns true, if the given value is a native number.\n     * @param value The value to check.\n     */\n    SafeJSON.isNumber = function (value) {\n        return typeof value === \"number\" && isFinite(value);\n    };\n    /**\n     * Returns true, if the given value is a native boolean.\n     * @param value The value to check.\n     */\n    SafeJSON.isBoolean = function (value) {\n        return typeof value === \"boolean\";\n    };\n    /**\n     * Returns true, if the given value is a native array.\n     * @param value The value to check.\n     */\n    SafeJSON.isArray = function (value) {\n        return value && typeof value === \"object\" && value.constructor === Array;\n    };\n    /**\n     * Returns true, if the given value is a native dictionary.\n     * @param value The value to check.\n     */\n    SafeJSON.isDictionary = function (value) {\n        return value && typeof value === \"object\" && value.constructor === Object;\n    };\n    /**\n     * Maps every value of a dictionary.\n     *\n     * @param dict The dictionary whose values to map.\n     * @param map The function that will be applied to every value of the dictionary,\n     */\n    SafeJSON.mapValue = function (dict, map) {\n        var akku = {};\n        Object.keys(dict).forEach(function (key) {\n            akku[key] = map(dict[key]);\n        });\n        return akku;\n    };\n    // OrNull interface\n    /**\n     * Tries to parse a string value and returns it.\n     *\n     * A number is converted to a string using `toString()`.\n     *\n     * A boolean is converted to a string:\n     * - `true`: `\"true\"`\n     * - `false`: `\"false\"`\n     *\n     * @return A string value or `null` if it cannot be converted.\n     */\n    SafeJSON.prototype.stringOrNull = function () {\n        switch (this.type) {\n            case Type_1.Type.string: {\n                return this.raw;\n            }\n            case Type_1.Type.number: {\n                return this.raw.toString();\n            }\n            case Type_1.Type.boolean: {\n                if (this.raw) {\n                    return \"true\";\n                }\n                else {\n                    return \"false\";\n                }\n            }\n            case Type_1.Type.dictionary: return null;\n            case Type_1.Type.array: return null;\n            case Type_1.Type.null: return null;\n        }\n    };\n    /**\n     * Tries to parse a number value and returns it.\n     *\n     * A string is converted to a number using `Number()` constructor.\n     * If the result is `NaN`, `null` will be returned.\n     *\n     * A boolean is converted to a number:\n     * - `true`: `1`\n     * - `false`: `0`\n     *\n     * @return A number value or `null` if it cannot be converted.\n     */\n    SafeJSON.prototype.numberOrNull = function () {\n        switch (this.type) {\n            case Type_1.Type.string: {\n                var n = Number(this.raw);\n                if (isNaN(n)) {\n                    return null;\n                }\n                else {\n                    return n;\n                }\n            }\n            case Type_1.Type.number: {\n                return this.raw;\n            }\n            case Type_1.Type.boolean: {\n                if (this.raw) {\n                    return 1;\n                }\n                else {\n                    return 0;\n                }\n            }\n            case Type_1.Type.dictionary: return null;\n            case Type_1.Type.array: return null;\n            case Type_1.Type.null: return null;\n        }\n    };\n    /**\n     * Tries to parse a boolean value and returns it.\n     *\n     * A string is converted to a boolean:\n     * - `\"true\"`: `true`\n     * - `\"false\"`: `false`\n     *\n     * A number is converted to a boolean:\n     * - `0`: `false`\n     * - any other number: `true`\n     *\n     * @return A number value or `null` if it cannot be converted.\n     */\n    SafeJSON.prototype.booleanOrNull = function () {\n        switch (this.type) {\n            case Type_1.Type.string: {\n                if (this.raw === \"true\") {\n                    return true;\n                }\n                else if (this.raw === \"false\") {\n                    return false;\n                }\n                else {\n                    return null;\n                }\n            }\n            case Type_1.Type.number: {\n                if (this.raw === 0) {\n                    return false;\n                }\n                else {\n                    return true;\n                }\n            }\n            case Type_1.Type.boolean: {\n                return this.raw;\n            }\n            case Type_1.Type.dictionary: return null;\n            case Type_1.Type.array: return null;\n            case Type_1.Type.null: return null;\n        }\n    };\n    /**\n     * Tries to return the given object as a dictionary.\n     *\n     * @return A dictionary value or `null`.\n     */\n    SafeJSON.prototype.dictionaryOrNull = function () {\n        if (this.type === Type_1.Type.dictionary) {\n            return SafeJSON.mapValue(this.raw, function (value) {\n                return new SafeJSON(value);\n            });\n        }\n        else {\n            return null;\n        }\n    };\n    /**\n     * Tries to return the given object as an array.\n     *\n     * @return An array value or `null`.\n     */\n    SafeJSON.prototype.arrayOrNull = function () {\n        if (this.type === Type_1.Type.array) {\n            return this.raw.map(function (value) {\n                return new SafeJSON(value);\n            });\n        }\n        else {\n            return null;\n        }\n    };\n    // Value interface\n    /**\n     * Tries to return the given object as a string.\n     * If the conversion failes, `\"\"` is returned.\n     *\n     * See [[stringOrNull]] for conversion rules.\n     *\n     * @returns A string value or `\"\"`.\n     */\n    SafeJSON.prototype.stringValue = function () {\n        return this.stringOrDefault(\"\");\n    };\n    /**\n     * Tries to return the given object as a number.\n     * If the conversion failes, `0` is returned.\n     *\n     * See [[numberOrNull]] for conversion rules.\n     *\n     * @returns A number value or `0`.\n     */\n    SafeJSON.prototype.numberValue = function () {\n        return this.numberOrDefault(0);\n    };\n    /**\n     * Tries to return the given object as a boolean.\n     * If the conversion failes, `false` is returned.\n     *\n     * See [[booleanOrNull]] for conversion rules.\n     *\n     * @returns A boolean value or `false`.\n     */\n    SafeJSON.prototype.booleanValue = function () {\n        return this.booleanOrDefault(false);\n    };\n    /**\n     * Tries to return the given object as a native dictionary.\n     * If the the object is no dictionary, `{}` is returned.\n     *\n     * The values are wrapped in `SafeJSON`.\n     *\n     * @returns A valid dictionary.\n     */\n    SafeJSON.prototype.dictionaryValue = function () {\n        if (this.type === Type_1.Type.dictionary) {\n            return SafeJSON.mapValue(this.raw, function (value) {\n                return new SafeJSON(value);\n            });\n        }\n        else {\n            return {};\n        }\n    };\n    /**\n     * Tries to return the given object as a native array.\n     * If the the object is no array, `[]` is returned.\n     *\n     * The values are wrapped in `SafeJSON`.\n     *\n     * @returns A valid array.\n     */\n    SafeJSON.prototype.arrayValue = function () {\n        if (this.type === Type_1.Type.array) {\n            return this.raw.map(function (value) {\n                return new SafeJSON(value);\n            });\n        }\n        else {\n            return [];\n        }\n    };\n    // OrDefault interface\n    /**\n     * Tries to convert the object to a string value.\n     * If the conversion failed, the default value `value` will be returned.\n     *\n     * See [[stringOrNull]] for conversion rules.\n     *\n     * @param value The fallback value that will be returned if conversion failed.\n     */\n    SafeJSON.prototype.stringOrDefault = function (value) {\n        var s = this.stringOrNull();\n        if (s === null) {\n            return value;\n        }\n        else {\n            return s;\n        }\n    };\n    /**\n     * Tries to convert the object to a number value.\n     * If the conversion failed, the default value `value` will be returned.\n     *\n     * See [[numberOrNull]] for conversion rules.\n     *\n     * @param value The fallback value that will be returned if conversion failed.\n     */\n    SafeJSON.prototype.numberOrDefault = function (value) {\n        var n = this.numberOrNull();\n        if (n === null) {\n            return value;\n        }\n        else {\n            return n;\n        }\n    };\n    /**\n     * Tries to convert the object to a boolean value.\n     * If the conversion failed, the default value `value` will be returned.\n     *\n     * See [[booleanOrNull]] for conversion rules.\n     *\n     * @param value The fallback value that will be returned if conversion failed.\n     */\n    SafeJSON.prototype.booleanOrDefault = function (value) {\n        var b = this.booleanOrNull();\n        if (b === null) {\n            return value;\n        }\n        else {\n            return b;\n        }\n    };\n    // Direct dictionary access\n    /**\n     * This function will try to return a wrapped child object.\n     * Use this function if the object is assumed to be a dictionary or an array.\n     * If `key` is a string, the root object is considered to be a dictionary and object at that key is beeing wrapped\n     * and returned.\n     * If `key` is a number, the root object is considered to be an array and the value at that index is beeing wrapped\n     * and returned.\n     *\n     * `SafeJSON(null)` will be returned if the child cannot be accessed, or the type of `key` is not compatible with\n     * the subscript signature of the root object.\n     *\n     * @param key The key that should be used to access the child object.\n     */\n    SafeJSON.prototype.get = function (key) {\n        if (SafeJSON.isString(key)) {\n            if (this.type === Type_1.Type.dictionary) {\n                return new SafeJSON(this.raw[key]);\n            }\n            else {\n                return new SafeJSON(null);\n            }\n        }\n        else if (SafeJSON.isNumber(key)) {\n            if (this.type === Type_1.Type.array) {\n                return new SafeJSON(this.raw[key]);\n            }\n            else {\n                return new SafeJSON(null);\n            }\n        }\n        else {\n            return new SafeJSON(null);\n        }\n    };\n    return SafeJSON;\n}());\nexports.SafeJSON = SafeJSON;\n\n\n//# sourceURL=webpack://safe-json/./lib/SafeJSON.ts?");
+
+/***/ }),
+
+/***/ "./lib/Type.ts":
+/*!*********************!*\
+  !*** ./lib/Type.ts ***!
+  \*********************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+eval("\nObject.defineProperty(exports, \"__esModule\", { value: true });\n/**\n * An enum that represents the various types of a JSON object.\n */\nvar Type;\n(function (Type) {\n    Type[Type[\"string\"] = 0] = \"string\";\n    Type[Type[\"number\"] = 1] = \"number\";\n    Type[Type[\"boolean\"] = 2] = \"boolean\";\n    Type[Type[\"dictionary\"] = 3] = \"dictionary\";\n    Type[Type[\"array\"] = 4] = \"array\";\n    Type[Type[\"null\"] = 5] = \"null\";\n})(Type = exports.Type || (exports.Type = {}));\n\n\n//# sourceURL=webpack://safe-json/./lib/Type.ts?");
+
+/***/ })
+
+/******/ });
+});

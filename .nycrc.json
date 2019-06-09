@@ -1,0 +1,17 @@
+{
+    "all": true,
+    "include": [
+        "out-tsc/**/*",
+        "lib/**/*"
+    ],
+    "exclude": [
+        "**/*.d.ts"
+    ],
+    "reporter": [
+        "lcov",
+        "text"
+    ],
+    "extension": [".ts", ".js"],
+    "instrument": true,
+    "check-coverage": true
+}
