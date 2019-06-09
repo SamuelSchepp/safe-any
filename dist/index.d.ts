@@ -16,38 +16,6 @@ export declare class SafeJSON {
      */
     static parseJSON(json: string): SafeJSON;
     /**
-     * Returns true, if the given value is a native string.
-     * @param value The value to check.
-     */
-    private static isString;
-    /**
-     * Returns true, if the given value is a native number.
-     * @param value The value to check.
-     */
-    private static isNumber;
-    /**
-     * Returns true, if the given value is a native boolean.
-     * @param value The value to check.
-     */
-    private static isBoolean;
-    /**
-     * Returns true, if the given value is a native array.
-     * @param value The value to check.
-     */
-    private static isArray;
-    /**
-     * Returns true, if the given value is a native dictionary.
-     * @param value The value to check.
-     */
-    private static isDictionary;
-    /**
-     * Maps every value of a dictionary.
-     *
-     * @param dict The dictionary whose values to map.
-     * @param map The function that will be applied to every value of the dictionary,
-     */
-    private static mapValue;
-    /**
      * The type of the current root object.
      * This can be used to make decision on futher handling.
      */
@@ -204,6 +172,45 @@ export declare class SafeJSON {
     get(key: string | number): SafeJSON;
 }
 
+export declare class Tool {
+    /**
+     * Returns true, if the given value is a native string.
+     * @param value The value to check.
+     */
+    static isString(value: any): boolean;
+    /**
+     * Returns true, if the given value is a native number.
+     * @param value The value to check.
+     */
+    static isNumber(value: any): boolean;
+    /**
+     * Returns true, if the given value is a native boolean.
+     * @param value The value to check.
+     */
+    static isBoolean(value: any): boolean;
+    /**
+     * Returns true, if the given value is a native array.
+     * @param value The value to check.
+     */
+    static isArray(value: any): boolean;
+    /**
+     * Returns true, if the given value is a native dictionary.
+     * @param value The value to check.
+     */
+    static isDictionary(value: any): boolean;
+    /**
+     * Maps every value of a dictionary.
+     *
+     * @param dict The dictionary whose values to map.
+     * @param map The function that will be applied to every value of the dictionary,
+     */
+    static mapValue<A, B>(dict: {
+        [key: string]: A;
+    }, map: (value: A) => B): {
+        [key: string]: B;
+    };
+}
+
 /**
  * An enum that represents the various types of a JSON object.
  */
@@ -215,6 +222,12 @@ export declare enum Type {
     array = 4,
     null = 5
 }
+
+
+
+
+
+
 
 
 

@@ -1,3 +1,4 @@
+import { Tool } from "./Tool";
 import { Type } from "./Type";
 
 /**
@@ -27,64 +28,6 @@ export class SafeJSON {
         }
     }
 
-    // Helper functions
-
-    /**
-     * Returns true, if the given value is a native string.
-     * @param value The value to check.
-     */
-    private static isString(value: any): boolean {
-        return typeof value === "string" || value instanceof String;
-    }
-
-    /**
-     * Returns true, if the given value is a native number.
-     * @param value The value to check.
-     */
-    private static isNumber(value: any): boolean {
-        return typeof value === "number" && isFinite(value);
-    }
-
-    /**
-     * Returns true, if the given value is a native boolean.
-     * @param value The value to check.
-     */
-    private static isBoolean(value: any): boolean {
-        return typeof value === "boolean";
-    }
-
-    /**
-     * Returns true, if the given value is a native array.
-     * @param value The value to check.
-     */
-    private static isArray(value: any): boolean {
-        return value && typeof value === "object" && value.constructor === Array;
-    }
-
-    /**
-     * Returns true, if the given value is a native dictionary.
-     * @param value The value to check.
-     */
-    private static isDictionary(value: any): boolean {
-        return value && typeof value === "object" && value.constructor === Object;
-    }
-
-    /**
-     * Maps every value of a dictionary.
-     *
-     * @param dict The dictionary whose values to map.
-     * @param map The function that will be applied to every value of the dictionary,
-     */
-    private static mapValue<A, B>(dict: { [key: string]: A; }, map: (value: A) => B): { [key: string]: B; } {
-        const akku: { [key: string]: B } = {};
-
-        Object.keys(dict).forEach((key: string) => {
-            akku[key] = map(dict[key]);
-        });
-
-        return akku;
-    }
-
     // Properties
 
     /**
@@ -107,15 +50,15 @@ export class SafeJSON {
     constructor(object: any) {
         this.raw = object;
 
-        if (SafeJSON.isString(object)) {
+        if (Tool.isString(object)) {
             this.type = Type.string;
-        } else if (SafeJSON.isNumber(object)) {
+        } else if (Tool.isNumber(object)) {
             this.type = Type.number;
-        } else if (SafeJSON.isBoolean(object)) {
+        } else if (Tool.isBoolean(object)) {
             this.type = Type.boolean;
-        } else if (SafeJSON.isArray(object)) {
+        } else if (Tool.isArray(object)) {
             this.type = Type.array;
-        } else if (SafeJSON.isDictionary(object)) {
+        } else if (Tool.isDictionary(object)) {
             this.type = Type.dictionary;
         } else  {
             this.type = Type.null;
@@ -241,7 +184,7 @@ export class SafeJSON {
      */
     public dictionaryOrNull(): { [key: string]: SafeJSON } | null {
         if (this.type === Type.dictionary) {
-            return SafeJSON.mapValue(this.raw, (value: any) => {
+            return Tool.mapValue(this.raw, (value: any) => {
                 return new SafeJSON(value);
             });
         } else {
@@ -312,7 +255,7 @@ export class SafeJSON {
      */
     public dictionaryValue(): { [key: string]: SafeJSON } {
         if (this.type === Type.dictionary) {
-            return SafeJSON.mapValue(this.raw, (value: any) => {
+            return Tool.mapValue(this.raw, (value: any) => {
                 return new SafeJSON(value);
             });
         } else {
@@ -407,13 +350,13 @@ export class SafeJSON {
      * @param key The key that should be used to access the child object.
      */
     public get(key: string | number): SafeJSON {
-        if (SafeJSON.isString(key)) {
+        if (Tool.isString(key)) {
             if (this.type === Type.dictionary) {
                 return new SafeJSON(this.raw[key]);
             } else {
                 return new SafeJSON(null);
             }
-        } else if (SafeJSON.isNumber(key)) {
+        } else if (Tool.isNumber(key)) {
             if (this.type === Type.array) {
                 return new SafeJSON(this.raw[key]);
             } else {
