@@ -3,6 +3,7 @@
 [![Build Status](https://travis-ci.org/SamuelSchepp/SafeJSON.svg?branch=master)](https://travis-ci.org/SamuelSchepp/SafeJSON)
 [![Coverage Status](https://coveralls.io/repos/github/SamuelSchepp/SafeJSON/badge.svg?branch=master)](https://coveralls.io/github/SamuelSchepp/SafeJSON?branch=master)
 ![Dependencies](https://david-dm.org/SamuelSchepp/SafeJSON.svg)
+![Node Version](https://img.shields.io/badge/node-%3E=%208.11-brightgreen.svg)
 
 Safe wrapper for ```any``` and JSON in TypeScript.
 
