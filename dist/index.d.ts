@@ -170,6 +170,20 @@ export declare class SafeJSON {
      * @param key The key that should be used to access the child object.
      */
     get(key: string | number): SafeJSON;
+    /**
+     * If the object is a string, this operator treats the value as a JSON string and tries to re-parse it into an
+     * object and returns it.
+     * If the object is no string or the parsing failed, the current object will be returned without change.
+     *
+     * It replaces the unhandy manual approach of breaking the operator chain.
+     * ```typescript
+     * // Instead of
+     * SafeJSON.parsedJSON(safeObject.get("jsonString").stringValue()).get(0)
+     * // Do this
+     * safeObject.get("jsonString").parsed().get(0)
+     * ```
+     */
+    parsed(): SafeJSON;
 }
 
 export declare class Tool {
@@ -222,6 +236,7 @@ export declare enum Type {
     array = 4,
     null = 5
 }
+
 
 
 

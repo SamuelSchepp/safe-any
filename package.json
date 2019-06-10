@@ -8,7 +8,7 @@
     "build": "tsc",
     "build-dist": "webpack --config webpack.config.js",
     "lint": "tslint --project .",
-    "test": "nyc mocha",
+    "test": "npm run build && npm run build-dist && nyc mocha",
     "coverage": "nyc --reporter=text-lcov mocha | coveralls",
     "docs": "typedoc --out docs ./lib"
   },
