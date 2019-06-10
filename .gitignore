@@ -4,3 +4,4 @@ out-tsc
 docs
 .nyc_output
 coverage
+.idea
