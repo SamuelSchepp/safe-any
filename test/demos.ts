@@ -126,4 +126,24 @@ describe("Demos", () => {
         assert.deepEqual(persons[1].address.city, "");
         assert.deepEqual(persons[1].address.country, "");
     });
+    it("should return correct value", () => {
+        const object = {
+            myArray: [
+                {
+                    name: "object1",
+                },
+                {
+                    name: "object2",
+                },
+                {
+                    name: "object3",
+                },
+            ],
+        };
+
+        const safeObject = new SafeJSON(object);
+        const nameOfObject2 = safeObject.get("myArray").get(1).get("name").stringValue();
+
+        assert.deepEqual(nameOfObject2, "object2");
+    });
 });
