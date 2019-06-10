@@ -146,4 +146,13 @@ describe("Demos", () => {
 
         assert.deepEqual(nameOfObject2, "object2");
     });
+    it("should be a dictionary", () => {
+        const wrappedDict = new SafeJSON({ key: "value" });
+        if (wrappedDict.type === Type.dictionary) {
+            const value = wrappedDict.get("key").stringValue();
+            assert.deepEqual(value, "value");
+        } else {
+            assert.fail();
+        }
+    });
 });
