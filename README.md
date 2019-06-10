@@ -15,7 +15,7 @@ Say goodbye to `TypeError: Cannot read property 'key' of undefinied`.
 ## Quick start
 
 ```typescript
-import { SafeJSON, Type } from "safe-json";
+import { SafeJSON } from "safe-json";
 
 // Unsafe object
 const parsedJSON: any = {
@@ -146,4 +146,30 @@ numberValue(): number
 booleanValue(): boolean
 dictionaryValue(): { [key: string]: SafeJSON }
 arrayValue(): SafeJSON[]
+```
+
+### Getting the object's type
+
+The `type` property can be used to determin the object's type.
+This is useful for custom parsing of tree structures or fallback mechanics.
+
+Possible types are:
+- `string`
+- `number`
+- `boolean`
+- `dictionary`
+- `array`
+- `null`
+
+```typescript
+import { SafeJSON, Type } from "safe-json";
+
+const wrappedDict = new SafeJSON({ key: "value" });
+
+if (wrappedDict.type === Type.dictionary) {
+  const entry = wrappedDict.get("key");
+  // entry.type === Type.string
+} else {
+  console.log("The value is no dictionary.");
+}
 ```
