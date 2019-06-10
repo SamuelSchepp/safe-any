@@ -37,7 +37,7 @@ const value = object
   .get("firstName")
   .stringOrDefault("no name");
 
-// firstName === "John"
+// value === "John"
 ```
 
 ## Guide
