@@ -1,14 +1,15 @@
 language: node_js
+
 node_js:
   - "8.11"
+  - "10.16"
+  - "12.4"
 
 notifications:
   email: false
 
-before_script:
-  - npm install --only=dev
-
 script:
+  - npm install
   - npm run build
   - npm run build-dist
   - npm run lint
