@@ -366,4 +366,32 @@ export class SafeJSON {
             return new SafeJSON(null);
         }
     }
+
+    // Other
+
+    /**
+     * If the object is a string, this operator treats the value as a JSON string and tries to re-parse it into an
+     * object and returns it.
+     * If the object is no string or the parsing failed, the current object will be returned without change.
+     *
+     * It replaces the unhandy manual approach of breaking the operator chain.
+     * ```typescript
+     * // Instead of
+     * SafeJSON.parsedJSON(safeObject.get("jsonString").stringValue()).get(0)
+     * // Do this
+     * safeObject.get("jsonString").parsed().get(0)
+     * ```
+     */
+    public parsed(): SafeJSON {
+        if (this.type === Type.string) {
+            try {
+                const parsed = JSON.parse(this.raw);
+                return new SafeJSON(parsed);
+            } catch {
+                return this;
+            }
+        } else {
+            return this;
+        }
+    }
 }

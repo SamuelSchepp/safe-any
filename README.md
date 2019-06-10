@@ -174,3 +174,23 @@ if (wrappedDict.type === Type.dictionary) {
   console.log("The value is no dictionary.");
 }
 ```
+
+### Parsing embedded JSON string literals
+
+If an object embeds a JSON string literal, use the `parsed()` operator to try parsing it into an object.
+If the object is a string, this operator treats the value as a JSON string and tries to parse it into an object and returns it.
+
+If the object is no string or the parsing failed, the current object will be returned without change.
+This replaces the unhandy manual approach of breaking the operator chain.
+```typescript
+const obj = {
+  jsonString: "{ \"hello\": \"world\" }",
+};
+const safeObject = new SafeJSON(obj);
+
+// Instead of
+SafeJSON.parsedJSON(safeObject.get("jsonString").stringValue()).get("hello").stringValue();
+
+// Do this
+safeObject.get("jsonString").parsed().get("hello").stringValue();
+```
