@@ -12,7 +12,7 @@ Say goodbye to `TypeError: Cannot read property 'key' of undefinied`.
 
 `npm i --save SamuelSchepp/safe-json`
 
-## Quick Start
+## Quick start
 
 ```typescript
 import { SafeJSON, Type } from "safe-json";
@@ -42,40 +42,44 @@ const value = object
 
 ## Guide
 
-This libary makes access to objects of type `any` type-safe, by providing default values and a typed interface.
+This libary makes access to objects of type `any` type-safe by providing default values and a typed interface.
 
 ### Getting started
 
-Create a `SafeJSON` object by either wrapping a `any` or parsing a JSON literal.
+Create a `SafeJSON` object by either wrapping an `any` or parsing a JSON literal.
+If the parsing fails, `new SafeJSON(null)` will be returned.
+`SafeJSON.parseJSON()` does not throw.
 
 ```typescript
+// Unsafe object, which may be the result of JSON.parse().
 const unsafeObject: any = {
   ...
 };
+// Safe wrap
 const safeObject = new SafeJSON(unsafeObject);
 ```
 
 ```typescript
+// Parse JSON literal and wrap safely
 const safeObject = SafeJSON.parseJSON("{ 'key': 'value' }");
 ```
 
-### Referencing sub-objects
+### Referencing sub objects
 
 ```typescript
 get(key: string | number): SafeJSON
 ```
 
 ```typescript
-const subValue = object.get("key");
+const subValue1 = safeDictionary.get("key");
+const subValue2 = safeArray.get(0);
 ```
 
-Instead of accesing sub objects using an unsafe subscript acces (`object['key']`), the `get()` operator is used.
-If the root object is an array, use `get(2)` to access the 4th value.
+Instead of accesing sub objects using the unsafe subscript access (`object['key']`), the `get()` operator is used.
+If the root object is an array, use `get(2)` to access the 3rd value.
 If the root object is a dictionary, use `get("key")` to access the value that is defined at the key `key`.
 If the sub object cannot be accessed, because it does not exist or the root object's type is incompatible,
 `new SafeJSON(null)` is returned.
-
-#### Example
 
 ```typescript
 const object = {
