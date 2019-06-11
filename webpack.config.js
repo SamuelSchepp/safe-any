@@ -22,7 +22,7 @@ module.exports = {
     output: {
         filename: 'index.js',
         libraryTarget: 'umd',
-        library: 'safe-json',
+        library: 'safe-any',
         path: path.resolve(__dirname, 'dist'),
         globalObject: 'this',
     },

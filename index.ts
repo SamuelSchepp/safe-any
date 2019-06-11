@@ -1,1 +1,1 @@
-export { SafeJSON } from "./lib/SafeJSON";
+export { SafeAny } from "./lib/SafeAny";

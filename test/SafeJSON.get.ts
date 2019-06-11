@@ -1,11 +1,11 @@
 import assert from "assert";
-import { SafeJSON } from "../lib/SafeJSON";
+import { SafeAny } from "../lib/SafeAny";
 import { Type } from "../lib/Type";
 
-describe("SafeJSON", () => {
+describe("SafeAny", () => {
     describe("get(key)", () => {
         it("should return \"value\"", () => {
-            const sj = new SafeJSON({
+            const sj = new SafeAny({
                 level1: {
                     level2: {
                         key: "value",
@@ -15,7 +15,7 @@ describe("SafeJSON", () => {
             assert.deepEqual(sj.get("level1").get("level2").get("key").stringValue(), "value");
         });
         it("should return \"world\"", () => {
-            const sj = new SafeJSON({
+            const sj = new SafeAny({
                 level1: {
                     level2: [
                         {
@@ -33,7 +33,7 @@ describe("SafeJSON", () => {
             assert.deepEqual(sj.get("level1").get("level2").get(1).get("hello").stringValue(), "world");
         });
         it("should return null", () => {
-            const sj = new SafeJSON({
+            const sj = new SafeAny({
                 level1: {
                 },
             });
@@ -48,7 +48,7 @@ describe("SafeJSON", () => {
                     },
                 ],
             };
-            const object = new SafeJSON(parsedJSON);
+            const object = new SafeAny(parsedJSON);
             const value = object
                 .get("persons")
                 .get(0)
@@ -57,7 +57,7 @@ describe("SafeJSON", () => {
             assert.deepEqual(value, "John");
         });
         it("should return \"value\"", () => {
-            const sj = new SafeJSON(
+            const sj = new SafeAny(
                 [
                     [],
                     [
@@ -73,7 +73,7 @@ describe("SafeJSON", () => {
             assert.deepEqual(sj.get(1).get(0).get(1).stringValue(), "value");
         });
         it("should return \"world\"", () => {
-            const sj = new SafeJSON(
+            const sj = new SafeAny(
                 [
                     {
                         level1: [
@@ -88,14 +88,14 @@ describe("SafeJSON", () => {
             assert.deepEqual(sj.get(0).get("level1").get(3).stringValue(), "world");
         });
         it("should return null", () => {
-            const sj = new SafeJSON(
+            const sj = new SafeAny(
                 [
                 ],
             );
             assert.deepEqual(sj.get(0).get("level1").get(3).stringOrNull(), null);
         });
         it("should return null at bad array index", () => {
-            const sj = new SafeJSON(
+            const sj = new SafeAny(
                 [
                     1,
                     2,
@@ -109,7 +109,7 @@ describe("SafeJSON", () => {
             assert.deepEqual(sj.get(8).numberOrNull(), null);
         });
         it("should return null with bad key type", () => {
-            const sj = new SafeJSON({
+            const sj = new SafeAny({
                 hello: "world",
             });
             assert.deepEqual(sj.get({} as any).type, Type.null);

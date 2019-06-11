@@ -1,5 +1,5 @@
 {
-  "name": "safe-json",
+  "name": "safe-any",
   "version": "0.0.1",
   "description": "Safe interface to JSON and any objects written in TypeScript.",
   "main": "./dist/index.js",

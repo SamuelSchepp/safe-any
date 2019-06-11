@@ -2,11 +2,11 @@
 /**
  * A wrapper for `any` with a safe access interface.
  */
-export declare class SafeJSON {
+export declare class SafeAny {
     /**
      * Parses the json literal using `JSON.parse()`.
      *
-     * If the JSON failed to parse, a valid `SafeJSON` object is still returned.
+     * If the JSON failed to parse, a valid `SafeAny` object is still returned.
      * The `type` property of this object has the value `Type.null`.
      *
      * Only use this, if the parse error can be ignored.
@@ -14,7 +14,7 @@ export declare class SafeJSON {
      *
      * @param json A json string literal that should be parsed.
      */
-    static parseJSON(json: string): SafeJSON;
+    static parseJSON(json: string): SafeAny;
     /**
      * The type of the current root object.
      * This can be used to make decision on futher handling.
@@ -74,14 +74,14 @@ export declare class SafeJSON {
      * @return A dictionary value or `null`.
      */
     dictionaryOrNull(): {
-        [key: string]: SafeJSON;
+        [key: string]: SafeAny;
     } | null;
     /**
      * Tries to return the given object as an array.
      *
      * @return An array value or `null`.
      */
-    arrayOrNull(): SafeJSON[] | null;
+    arrayOrNull(): SafeAny[] | null;
     /**
      * Tries to return the given object as a string.
      * If the conversion failes, `""` is returned.
@@ -113,22 +113,22 @@ export declare class SafeJSON {
      * Tries to return the given object as a native dictionary.
      * If the the object is no dictionary, `{}` is returned.
      *
-     * The values are wrapped in `SafeJSON`.
+     * The values are wrapped in `SafeAny`.
      *
      * @returns A valid dictionary.
      */
     dictionaryValue(): {
-        [key: string]: SafeJSON;
+        [key: string]: SafeAny;
     };
     /**
      * Tries to return the given object as a native array.
      * If the the object is no array, `[]` is returned.
      *
-     * The values are wrapped in `SafeJSON`.
+     * The values are wrapped in `SafeAny`.
      *
      * @returns A valid array.
      */
-    arrayValue(): SafeJSON[];
+    arrayValue(): SafeAny[];
     /**
      * Tries to convert the object to a string value.
      * If the conversion failed, the default value `value` will be returned.
@@ -164,12 +164,12 @@ export declare class SafeJSON {
      * If `key` is a number, the root object is considered to be an array and the value at that index is beeing wrapped
      * and returned.
      *
-     * `SafeJSON(null)` will be returned if the child cannot be accessed, or the type of `key` is not compatible with
+     * `SafeAny(null)` will be returned if the child cannot be accessed, or the type of `key` is not compatible with
      * the subscript signature of the root object.
      *
      * @param key The key that should be used to access the child object.
      */
-    get(key: string | number): SafeJSON;
+    get(key: string | number): SafeAny;
     /**
      * If the object is a string, this operator treats the value as a JSON string and tries to re-parse it into an
      * object and returns it.
@@ -178,12 +178,12 @@ export declare class SafeJSON {
      * It replaces the unhandy manual approach of breaking the operator chain.
      * ```typescript
      * // Instead of
-     * SafeJSON.parsedJSON(safeObject.get("jsonString").stringValue()).get(0)
+     * SafeAny.parsedJSON(safeObject.get("jsonString").stringValue()).get(0)
      * // Do this
      * safeObject.get("jsonString").parsed().get(0)
      * ```
      */
-    parsed(): SafeJSON;
+    parsed(): SafeAny;
 }
 
 export declare class Tool {

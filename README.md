@@ -1,4 +1,4 @@
-# SafeJSON
+# SafeAny
 
 [![Build Status](https://travis-ci.org/SamuelSchepp/safe-any.svg?branch=master)](https://travis-ci.org/SamuelSchepp/safe-any)
 [![Coverage Status](https://coveralls.io/repos/github/SamuelSchepp/safe-any/badge.svg?branch=master)](https://coveralls.io/github/SamuelSchepp/safe-any?branch=master)
@@ -11,12 +11,12 @@ Say goodbye to `TypeError: Cannot read property 'key' of undefinied`.
 
 ## Install
 
-`npm i --save SamuelSchepp/safe-json`
+`npm i --save SamuelSchepp/safe-any`
 
 ## Quick start
 
 ```typescript
-import { SafeJSON } from "safe-json";
+import { SafeAny } from "safe-any";
 
 // Unsafe object
 const parsedJSON: any = {
@@ -29,7 +29,7 @@ const parsedJSON: any = {
 };
 
 // Create safe object
-const object = new SafeJSON(parsedJSON);
+const object = new SafeAny(parsedJSON);
 
 // Safe access
 const value = object
@@ -47,9 +47,9 @@ This libary makes access to objects of type `any` type-safe by providing default
 
 ### Getting started
 
-Create a `SafeJSON` object by either wrapping an `any` or parsing a JSON literal.
-If the parsing fails, `new SafeJSON(null)` will be returned.
-`SafeJSON.parseJSON()` does not throw.
+Create a `SafeAny` object by either wrapping an `any` or parsing a JSON literal.
+If the parsing fails, `new SafeAny(null)` will be returned.
+`SafeAny.parseJSON()` does not throw.
 
 ```typescript
 // Unsafe object, which may be the result of JSON.parse().
@@ -57,18 +57,18 @@ const unsafeObject: any = {
   ...
 };
 // Safe wrap
-const safeObject = new SafeJSON(unsafeObject);
+const safeObject = new SafeAny(unsafeObject);
 ```
 
 ```typescript
 // Parse JSON literal and wrap safely
-const safeObject = SafeJSON.parseJSON("{ 'key': 'value' }");
+const safeObject = SafeAny.parseJSON("{ 'key': 'value' }");
 ```
 
 ### Referencing sub objects
 
 ```typescript
-get(key: string | number): SafeJSON
+get(key: string | number): SafeAny
 ```
 
 ```typescript
@@ -80,7 +80,7 @@ Instead of accesing sub objects using the unsafe subscript access (`object['key'
 If the root object is an array, use `get(2)` to access the 3rd value.
 If the root object is a dictionary, use `get("key")` to access the value that is defined at the key `key`.
 If the sub object cannot be accessed, because it does not exist or the root object's type is incompatible,
-`new SafeJSON(null)` is returned.
+`new SafeAny(null)` is returned.
 
 ```typescript
 const object = {
@@ -97,7 +97,7 @@ const object = {
     ],
 };
 
-const safeObject = new SafeJSON(object);
+const safeObject = new SafeAny(object);
 const nameOfObject2 = safeObject
   .get("myArray")
   .get(1)
@@ -115,8 +115,8 @@ const nameOfObject2 = safeObject
 stringOrNull(): string | null
 numberOrNull(): number | null
 booleanOrNull(): boolean | null
-dictionaryOrNull(): { [key: string]: SafeJSON } | null
-arrayOrNull(): SafeJSON[] | null
+dictionaryOrNull(): { [key: string]: SafeAny } | null
+arrayOrNull(): SafeAny[] | null
 ```
 
 ### Reading a value with given fallback
@@ -145,8 +145,8 @@ booleanOrDefault(value: boolean): boolean
 stringValue(): string
 numberValue(): number
 booleanValue(): boolean
-dictionaryValue(): { [key: string]: SafeJSON }
-arrayValue(): SafeJSON[]
+dictionaryValue(): { [key: string]: SafeAny }
+arrayValue(): SafeAny[]
 ```
 
 ### Getting the object's type
@@ -163,9 +163,9 @@ Possible types are:
 - `null`
 
 ```typescript
-import { SafeJSON, Type } from "safe-json";
+import { SafeAny, Type } from "safe-any";
 
-const wrappedDict = new SafeJSON({ key: "value" });
+const wrappedDict = new SafeAny({ key: "value" });
 
 if (wrappedDict.type === Type.dictionary) {
   const entry = wrappedDict.get("key");
@@ -186,10 +186,10 @@ This replaces the unhandy manual approach of breaking the operator chain.
 const obj = {
   jsonString: "{ \"hello\": \"world\" }",
 };
-const safeObject = new SafeJSON(obj);
+const safeObject = new SafeAny(obj);
 
 // Instead of
-SafeJSON.parsedJSON(safeObject.get("jsonString").stringValue()).get("hello").stringValue();
+SafeAny.parsedJSON(safeObject.get("jsonString").stringValue()).get("hello").stringValue();
 
 // Do this
 safeObject.get("jsonString").parsed().get("hello").stringValue();

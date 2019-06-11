@@ -1,5 +1,5 @@
 import assert from "assert";
-import { SafeJSON } from "../lib/SafeJSON";
+import { SafeAny } from "../lib/SafeAny";
 import { Type } from "../lib/Type";
 
 // tslint:disable max-classes-per-file
@@ -9,7 +9,7 @@ class Person {
     public readonly lastName: string;
     public readonly address: Address;
 
-    constructor(json: SafeJSON) {
+    constructor(json: SafeAny) {
         this.firstName = json.get("firstName").stringValue();
         this.lastName = json.get("lastName").stringValue();
         this.address = new Address(json.get("address"));
@@ -22,7 +22,7 @@ class Address {
     public readonly city: string;
     public readonly country: string;
 
-    constructor(json: SafeJSON) {
+    constructor(json: SafeAny) {
         this.street = json.get("street").stringValue();
         this.postCode = json.get("postCode").stringValue();
         this.city = json.get("city").stringValue();
@@ -40,7 +40,7 @@ describe("Demos", () => {
                 },
             ],
         };
-        const object = new SafeJSON(parsedJSON);
+        const object = new SafeAny(parsedJSON);
         const value = object
             .get("persons")
             .get(0)
@@ -76,8 +76,8 @@ describe("Demos", () => {
         ]
         `;
 
-        const arr = SafeJSON.parseJSON(json);
-        const persons = arr.arrayValue().map((obj: SafeJSON) => {
+        const arr = SafeAny.parseJSON(json);
+        const persons = arr.arrayValue().map((obj: SafeAny) => {
             return new Person(obj);
         });
 
@@ -107,8 +107,8 @@ describe("Demos", () => {
         ]
         `;
 
-        const arr = SafeJSON.parseJSON(json);
-        const persons = arr.arrayValue().map((obj: SafeJSON) => {
+        const arr = SafeAny.parseJSON(json);
+        const persons = arr.arrayValue().map((obj: SafeAny) => {
             return new Person(obj);
         });
 
@@ -141,13 +141,13 @@ describe("Demos", () => {
             ],
         };
 
-        const safeObject = new SafeJSON(object);
+        const safeObject = new SafeAny(object);
         const nameOfObject2 = safeObject.get("myArray").get(1).get("name").stringValue();
 
         assert.deepEqual(nameOfObject2, "object2");
     });
     it("should be a dictionary", () => {
-        const wrappedDict = new SafeJSON({ key: "value" });
+        const wrappedDict = new SafeAny({ key: "value" });
         if (wrappedDict.type === Type.dictionary) {
             const value = wrappedDict.get("key").stringValue();
             assert.deepEqual(value, "value");
