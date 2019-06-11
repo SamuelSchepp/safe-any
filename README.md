@@ -1,8 +1,8 @@
 # SafeJSON
 
-[![Build Status](https://travis-ci.org/SamuelSchepp/safe-json.svg?branch=master)](https://travis-ci.org/SamuelSchepp/safe-json)
-[![Coverage Status](https://coveralls.io/repos/github/SamuelSchepp/safe-json/badge.svg?branch=master)](https://coveralls.io/github/SamuelSchepp/safe-json?branch=master)
-[![Dependencies](https://david-dm.org/SamuelSchepp/SafeJSON.svg)](https://david-dm.org/)
+[![Build Status](https://travis-ci.org/SamuelSchepp/safe-any.svg?branch=master)](https://travis-ci.org/SamuelSchepp/safe-any)
+[![Coverage Status](https://coveralls.io/repos/github/SamuelSchepp/safe-any/badge.svg?branch=master)](https://coveralls.io/github/SamuelSchepp/safe-any?branch=master)
+[![Dependencies](https://david-dm.org/SamuelSchepp/safe-any.svg)](https://david-dm.org/)
 ![Node Version](https://img.shields.io/badge/node-%3E=%208.11-brightgreen.svg)
 
 Safe wrapper for ```any``` and JSON in TypeScript.
