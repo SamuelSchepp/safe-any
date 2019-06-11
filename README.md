@@ -1,7 +1,7 @@
 # SafeJSON
 
 [![Build Status](https://travis-ci.org/SamuelSchepp/safe-json.svg?branch=master)](https://travis-ci.org/SamuelSchepp/safe-json)
-[![Coverage Status](https://coveralls.io/repos/github/SamuelSchepp/SafeJSON/badge.svg?branch=master)](https://coveralls.io/github/SamuelSchepp/SafeJSON?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/SamuelSchepp/safe-json/badge.svg?branch=master)](https://coveralls.io/github/SamuelSchepp/safe-json?branch=master)
 [![Dependencies](https://david-dm.org/SamuelSchepp/SafeJSON.svg)](https://david-dm.org/)
 ![Node Version](https://img.shields.io/badge/node-%3E=%208.11-brightgreen.svg)
 
