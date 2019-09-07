@@ -36,7 +36,7 @@ export class Tool {
      * @param value The value to check.
      */
     public static isDictionary(value: any): boolean {
-        return value != null && typeof value === "object" && value.constructor === Object;
+        return value != null && typeof value === "object" && value.constructor !== Array;
     }
 
     /**

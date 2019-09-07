@@ -22,5 +22,15 @@ describe("SafeAny", () => {
         it("should return Type.null", () => {
             assert.deepEqual(new SafeAny(null).type, Type.null);
         });
+        it("should treat a class instance like an dictionary", () => {
+            class MyClass {
+                constructor(public field: string) {
+                }
+            }
+            const obj = new MyClass("test");
+            const safeAny = new SafeAny(obj);
+            assert.deepEqual(safeAny.type, Type.dictionary);
+            assert.deepEqual(safeAny.get("field").stringValue(), "test");
+        });
     });
 });

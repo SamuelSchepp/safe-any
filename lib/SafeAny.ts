@@ -394,4 +394,12 @@ export class SafeAny {
             return this;
         }
     }
+
+    /**
+     * @returns The internal storage object, which is of type any.
+     * Use with caution.
+     */
+    public native(): any {
+        return this.raw;
+    }
 }

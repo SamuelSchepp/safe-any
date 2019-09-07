@@ -184,6 +184,11 @@ export declare class SafeAny {
      * ```
      */
     parsed(): SafeAny;
+    /**
+     * @returns The internal storage object, which is of type any.
+     * Use with caution.
+     */
+    native(): any;
 }
 
 export declare class Tool {
@@ -236,6 +241,7 @@ export declare enum Type {
     array = 4,
     null = 5
 }
+
 
 
 
