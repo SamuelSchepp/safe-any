@@ -133,14 +133,6 @@ booleanOrDefault(value: boolean): boolean
 
 - Either returns the value or a conventional default value.
 
-| Target Type  | Fallback Value |
-|--------------|----------------|
-| `string`     | `""`           |
-| `number`     | `0`            |
-| `boolean`    | `false`        |
-| `Dictionary` | `{}`           |
-| `Array`      | `[]`           |
-
 ```typescript
 stringValue(): string
 numberValue(): number
@@ -148,6 +140,14 @@ booleanValue(): boolean
 dictionaryValue(): { [key: string]: SafeAny }
 arrayValue(): SafeAny[]
 ```
+
+| Function            | Fallback Value |
+|---------------------|----------------|
+| `stringValue()`     | `""`           |
+| `numberValue()`     | `0`            |
+| `booleanValue()`    | `false`        |
+| `dictionaryValue()` | `{}`           |
+| `arrayValue()`      | `[]`           |
 
 ### Getting the object's type
 
