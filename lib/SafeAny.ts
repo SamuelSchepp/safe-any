@@ -1,5 +1,7 @@
 import { Tool } from "./Tool";
 import { Type } from "./Type";
+import { UnknownArray } from "./UnknownArray";
+import { UnknownDictionary } from "./UnknownDictionary";
 
 /**
  * A wrapper for `any` with a safe access interface.
@@ -39,7 +41,7 @@ export class SafeAny {
     /**
      * The actual native object, that is wrapped by this class.
      */
-    private readonly raw: any;
+    private readonly raw: unknown;
 
     // Constructor
 
@@ -47,7 +49,7 @@ export class SafeAny {
      * Default constructor to create the safe interface to `any`.
      * @param object An object that is the result of a JSON parse or any literal.
      */
-    constructor(object: any) {
+    constructor(object: unknown) {
         this.raw = object;
 
         if (Tool.isString(object)) {
@@ -81,7 +83,7 @@ export class SafeAny {
     public stringOrNull(): string | null {
         switch (this.type) {
             case Type.string: {
-                return this.raw;
+                return this.raw as string;
             }
             case Type.number: {
                 return (this.raw as number).toString();
@@ -169,7 +171,7 @@ export class SafeAny {
                 }
             }
             case Type.boolean: {
-                return this.raw;
+                return this.raw as boolean;
             }
             case Type.dictionary: return null;
             case Type.array: return null;
@@ -184,7 +186,7 @@ export class SafeAny {
      */
     public dictionaryOrNull(): { [key: string]: SafeAny } | null {
         if (this.type === Type.dictionary) {
-            return Tool.mapValue(this.raw, (value: any) => {
+            return Tool.mapValue(this.raw as UnknownDictionary, (value: unknown) => {
                 return new SafeAny(value);
             });
         } else {
@@ -199,7 +201,7 @@ export class SafeAny {
      */
     public arrayOrNull(): SafeAny[] | null {
         if (this.type === Type.array) {
-            return (this.raw as any[]).map((value) => {
+            return (this.raw as UnknownArray).map((value) => {
                 return new SafeAny(value);
             });
         } else {
@@ -254,12 +256,11 @@ export class SafeAny {
      * @returns A valid dictionary.
      */
     public dictionaryValue(): { [key: string]: SafeAny } {
-        if (this.type === Type.dictionary) {
-            return Tool.mapValue(this.raw, (value: any) => {
-                return new SafeAny(value);
-            });
-        } else {
+        const dictionary = this.dictionaryOrNull();
+        if (dictionary == null) {
             return {};
+        } else {
+            return dictionary;
         }
     }
 
@@ -272,12 +273,11 @@ export class SafeAny {
      * @returns A valid array.
      */
     public arrayValue(): SafeAny[] {
-        if (this.type === Type.array) {
-            return (this.raw as any[]).map((value) => {
-                return new SafeAny(value);
-            });
-        } else {
+        const array = this.arrayOrNull();
+        if (array == null) {
             return [];
+        } else {
+            return array;
         }
     }
 
@@ -352,13 +352,13 @@ export class SafeAny {
     public get(key: string | number): SafeAny {
         if (Tool.isString(key)) {
             if (this.type === Type.dictionary) {
-                return new SafeAny(this.raw[key]);
+                return new SafeAny((this.raw as UnknownDictionary)[key]);
             } else {
                 return new SafeAny(null);
             }
         } else if (Tool.isNumber(key)) {
             if (this.type === Type.array) {
-                return new SafeAny(this.raw[key]);
+                return new SafeAny((this.raw as UnknownArray)[key]);
             } else {
                 return new SafeAny(null);
             }
@@ -385,7 +385,7 @@ export class SafeAny {
     public parsed(): SafeAny {
         if (this.type === Type.string) {
             try {
-                const parsed = JSON.parse(this.raw);
+                const parsed = JSON.parse(this.raw as string);
                 return new SafeAny(parsed);
             } catch {
                 return this;
@@ -399,7 +399,7 @@ export class SafeAny {
      * @returns The internal storage object, which is of type any.
      * Use with caution.
      */
-    public native(): any {
+    public native(): unknown {
         return this.raw;
     }
 }

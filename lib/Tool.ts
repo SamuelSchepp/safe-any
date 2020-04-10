@@ -1,9 +1,12 @@
+/**
+ * Helper class for SafeAny implementation
+ */
 export class Tool {
     /**
      * Returns true, if the given value is a native string.
      * @param value The value to check.
      */
-    public static isString(value: any): boolean {
+    public static isString(value: any): value is string {
         return typeof value === "string" || value instanceof String;
     }
 
@@ -11,7 +14,7 @@ export class Tool {
      * Returns true, if the given value is a native number.
      * @param value The value to check.
      */
-    public static isNumber(value: any): boolean {
+    public static isNumber(value: any): value is number {
         return typeof value === "number" && isFinite(value);
     }
 
@@ -19,7 +22,7 @@ export class Tool {
      * Returns true, if the given value is a native boolean.
      * @param value The value to check.
      */
-    public static isBoolean(value: any): boolean {
+    public static isBoolean(value: any): value is boolean {
         return typeof value === "boolean";
     }
 
@@ -27,7 +30,7 @@ export class Tool {
      * Returns true, if the given value is a native array.
      * @param value The value to check.
      */
-    public static isArray(value: any): boolean {
+    public static isArray(value: any): value is any[] {
         return value != null && typeof value === "object" && value.constructor === Array;
     }
 
@@ -35,7 +38,7 @@ export class Tool {
      * Returns true, if the given value is a native dictionary.
      * @param value The value to check.
      */
-    public static isDictionary(value: any): boolean {
+    public static isDictionary(value: any): value is {[key: string]: any} {
         return value != null && typeof value === "object" && value.constructor !== Array;
     }
 

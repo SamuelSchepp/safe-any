@@ -29,8 +29,8 @@ describe("SafeAny", () => {
             const obj = new MyClass("test");
             const safeAny = new SafeAny(obj);
             assert.deepStrictEqual(safeAny.native(), obj);
-            assert.deepStrictEqual(safeAny.native().constructor.name, "MyClass");
-            assert.deepStrictEqual(safeAny.native().field, "test");
+            assert.deepStrictEqual((safeAny.native() as any).constructor.name, "MyClass");
+            assert.deepStrictEqual((safeAny.native() as any).field, "test");
         });
     });
 });
