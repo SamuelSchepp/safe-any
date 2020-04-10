@@ -49,6 +49,7 @@ describe("Demos", () => {
 
         assert.deepStrictEqual(value, "John");
         assert.deepStrictEqual(object.type, Type.dictionary);
+        assert.deepStrictEqual(object.get("persons").type, Type.array);
     });
     it("should parse tree object Person", () => {
         const json = `
