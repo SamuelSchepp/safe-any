@@ -3,10 +3,10 @@
  * Undefined and null are treated equally.
  */
 export enum Type {
-    string,
-    number,
-    boolean,
-    dictionary,
-    array,
-    null,
+    string = "string",
+    number = "number",
+    boolean = "boolean",
+    dictionary = "dictionary",
+    array = "array",
+    null = "null",
 }
