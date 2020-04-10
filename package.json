@@ -29,7 +29,7 @@
     "source-map-support": "^0.5.16",
     "ts-loader": "^6.2.2",
     "tslint": "^5.20.1",
-    "typedoc": "^0.14.2",
+    "typedoc": "^0.15.1",
     "typescript": "^3.8.3",
     "typescript-declaration-webpack-plugin": "^0.1.1",
     "webpack": "^4.42.1",

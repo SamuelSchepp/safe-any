@@ -28,7 +28,7 @@ export declare class SafeAny {
      * Default constructor to create the safe interface to `any`.
      * @param object An object that is the result of a JSON parse or any literal.
      */
-    constructor(object: any);
+    constructor(object: unknown);
     /**
      * Tries to parse a string value and returns it.
      *
@@ -188,35 +188,38 @@ export declare class SafeAny {
      * @returns The internal storage object, which is of type any.
      * Use with caution.
      */
-    native(): any;
+    native(): unknown;
 }
 
+/**
+ * Helper class for SafeAny implementation
+ */
 export declare class Tool {
     /**
      * Returns true, if the given value is a native string.
      * @param value The value to check.
      */
-    static isString(value: any): boolean;
+    static isString(value: unknown): value is string;
     /**
      * Returns true, if the given value is a native number.
      * @param value The value to check.
      */
-    static isNumber(value: any): boolean;
+    static isNumber(value: unknown): value is number;
     /**
      * Returns true, if the given value is a native boolean.
      * @param value The value to check.
      */
-    static isBoolean(value: any): boolean;
+    static isBoolean(value: unknown): value is boolean;
     /**
      * Returns true, if the given value is a native array.
      * @param value The value to check.
      */
-    static isArray(value: any): boolean;
+    static isArray(value: unknown): value is UnknownArray;
     /**
      * Returns true, if the given value is a native dictionary.
      * @param value The value to check.
      */
-    static isDictionary(value: any): boolean;
+    static isDictionary(value: unknown): value is UnknownDictionary;
     /**
      * Maps every value of a dictionary.
      *
@@ -232,15 +235,28 @@ export declare class Tool {
 
 /**
  * An enum that represents the various types of a JSON object.
+ * Undefined and null are treated equally.
  */
 export declare enum Type {
-    string = 0,
-    number = 1,
-    boolean = 2,
-    dictionary = 3,
-    array = 4,
-    null = 5
+    string = "string",
+    number = "number",
+    boolean = "boolean",
+    dictionary = "dictionary",
+    array = "array",
+    null = "null"
 }
+
+/**
+ * Helper type for SafeAny implementation
+ */
+export declare type UnknownArray = unknown[];
+
+/**
+ * Helper type for SafeAny implementation
+ */
+export declare type UnknownDictionary = {
+    [key: string]: unknown;
+};
 
 
 
