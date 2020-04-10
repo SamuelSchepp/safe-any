@@ -47,8 +47,8 @@ describe("Demos", () => {
             .get("firstName")
             .stringOrDefault("no name");
 
-        assert.deepEqual(value, "John");
-        assert.deepEqual(object.type, Type.dictionary);
+        assert.deepStrictEqual(value, "John");
+        assert.deepStrictEqual(object.type, Type.dictionary);
     });
     it("should parse tree object Person", () => {
         const json = `
@@ -81,19 +81,19 @@ describe("Demos", () => {
             return new Person(obj);
         });
 
-        assert.deepEqual(persons[0].firstName, "John");
-        assert.deepEqual(persons[0].lastName, "Appleseed");
-        assert.deepEqual(persons[0].address.street, "Main Street 1");
-        assert.deepEqual(persons[0].address.postCode, "2213");
-        assert.deepEqual(persons[0].address.city, "Washington DC");
-        assert.deepEqual(persons[0].address.country, "USA");
+        assert.deepStrictEqual(persons[0].firstName, "John");
+        assert.deepStrictEqual(persons[0].lastName, "Appleseed");
+        assert.deepStrictEqual(persons[0].address.street, "Main Street 1");
+        assert.deepStrictEqual(persons[0].address.postCode, "2213");
+        assert.deepStrictEqual(persons[0].address.city, "Washington DC");
+        assert.deepStrictEqual(persons[0].address.country, "USA");
 
-        assert.deepEqual(persons[1].firstName, "Max");
-        assert.deepEqual(persons[1].lastName, "Mustermann");
-        assert.deepEqual(persons[1].address.street, "Hauptstraße 1");
-        assert.deepEqual(persons[1].address.postCode, "34223");
-        assert.deepEqual(persons[1].address.city, "Berlin");
-        assert.deepEqual(persons[1].address.country, "Germany");
+        assert.deepStrictEqual(persons[1].firstName, "Max");
+        assert.deepStrictEqual(persons[1].lastName, "Mustermann");
+        assert.deepStrictEqual(persons[1].address.street, "Hauptstraße 1");
+        assert.deepStrictEqual(persons[1].address.postCode, "34223");
+        assert.deepStrictEqual(persons[1].address.city, "Berlin");
+        assert.deepStrictEqual(persons[1].address.country, "Germany");
     });
     it("should parse empty Person", () => {
         const json = `
@@ -112,19 +112,19 @@ describe("Demos", () => {
             return new Person(obj);
         });
 
-        assert.deepEqual(persons[0].firstName, "");
-        assert.deepEqual(persons[0].lastName, "");
-        assert.deepEqual(persons[0].address.street, "");
-        assert.deepEqual(persons[0].address.postCode, "");
-        assert.deepEqual(persons[0].address.city, "");
-        assert.deepEqual(persons[0].address.country, "");
+        assert.deepStrictEqual(persons[0].firstName, "");
+        assert.deepStrictEqual(persons[0].lastName, "");
+        assert.deepStrictEqual(persons[0].address.street, "");
+        assert.deepStrictEqual(persons[0].address.postCode, "");
+        assert.deepStrictEqual(persons[0].address.city, "");
+        assert.deepStrictEqual(persons[0].address.country, "");
 
-        assert.deepEqual(persons[1].firstName, "");
-        assert.deepEqual(persons[1].lastName, "");
-        assert.deepEqual(persons[1].address.street, "");
-        assert.deepEqual(persons[1].address.postCode, "");
-        assert.deepEqual(persons[1].address.city, "");
-        assert.deepEqual(persons[1].address.country, "");
+        assert.deepStrictEqual(persons[1].firstName, "");
+        assert.deepStrictEqual(persons[1].lastName, "");
+        assert.deepStrictEqual(persons[1].address.street, "");
+        assert.deepStrictEqual(persons[1].address.postCode, "");
+        assert.deepStrictEqual(persons[1].address.city, "");
+        assert.deepStrictEqual(persons[1].address.country, "");
     });
     it("should return correct value", () => {
         const object = {
@@ -144,13 +144,13 @@ describe("Demos", () => {
         const safeObject = new SafeAny(object);
         const nameOfObject2 = safeObject.get("myArray").get(1).get("name").stringValue();
 
-        assert.deepEqual(nameOfObject2, "object2");
+        assert.deepStrictEqual(nameOfObject2, "object2");
     });
     it("should be a dictionary", () => {
         const wrappedDict = new SafeAny({ key: "value" });
         if (wrappedDict.type === Type.dictionary) {
             const value = wrappedDict.get("key").stringValue();
-            assert.deepEqual(value, "value");
+            assert.deepStrictEqual(value, "value");
         } else {
             assert.fail();
         }

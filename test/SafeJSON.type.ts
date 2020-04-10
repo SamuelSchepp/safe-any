@@ -5,22 +5,22 @@ import { Type } from "../lib/Type";
 describe("SafeAny", () => {
     describe("type", () => {
         it("should return Type.string", () => {
-            assert.deepEqual(new SafeAny("test").type, Type.string);
+            assert.deepStrictEqual(new SafeAny("test").type, Type.string);
         });
         it("should return Type.number", () => {
-            assert.deepEqual(new SafeAny(123.435).type, Type.number);
+            assert.deepStrictEqual(new SafeAny(123.435).type, Type.number);
         });
         it("should return Type.boolean", () => {
-            assert.deepEqual(new SafeAny(false).type, Type.boolean);
+            assert.deepStrictEqual(new SafeAny(false).type, Type.boolean);
         });
         it("should return Type.array", () => {
-            assert.deepEqual(new SafeAny([1, 2, 3]).type, Type.array);
+            assert.deepStrictEqual(new SafeAny([1, 2, 3]).type, Type.array);
         });
         it("should return Type.dictionary", () => {
-            assert.deepEqual(new SafeAny({key: "value"}).type, Type.dictionary);
+            assert.deepStrictEqual(new SafeAny({key: "value"}).type, Type.dictionary);
         });
         it("should return Type.null", () => {
-            assert.deepEqual(new SafeAny(null).type, Type.null);
+            assert.deepStrictEqual(new SafeAny(null).type, Type.null);
         });
         it("should treat a class instance like an dictionary", () => {
             class MyClass {
@@ -29,8 +29,8 @@ describe("SafeAny", () => {
             }
             const obj = new MyClass("test");
             const safeAny = new SafeAny(obj);
-            assert.deepEqual(safeAny.type, Type.dictionary);
-            assert.deepEqual(safeAny.get("field").stringValue(), "test");
+            assert.deepStrictEqual(safeAny.type, Type.dictionary);
+            assert.deepStrictEqual(safeAny.get("field").stringValue(), "test");
         });
     });
 });

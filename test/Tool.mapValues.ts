@@ -14,7 +14,7 @@ describe("Tool", () => {
                 return value + 65;
             });
 
-            assert.deepEqual(result, {
+            assert.deepStrictEqual(result, {
                 A: 65,
                 B: 66,
                 C: 67,
