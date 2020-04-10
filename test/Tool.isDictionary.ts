@@ -17,4 +17,11 @@ describe("Tool.isDictionary", () => {
     it("should return false from undefined", () => {
         assert.deepStrictEqual(Tool.isDictionary(undefined), false);
     });
+    it("should return true from Date", () => {
+        assert.deepStrictEqual(Tool.isDictionary(new Date(2)), true);
+    });
+    it("should return true from custom class", () => {
+        class Test { }
+        assert.deepStrictEqual(Tool.isDictionary(new Test()), true);
+    });
 });
