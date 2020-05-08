@@ -34,7 +34,11 @@ export class Tool {
      * @param value The value to check.
      */
     public static isArray(value: unknown): value is UnknownArray {
-        return value != null && typeof value === "object" && value?.constructor === Array;
+        if (value != null && typeof value === "object" && (value as any).constructor === Array) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**
@@ -42,7 +46,11 @@ export class Tool {
      * @param value The value to check.
      */
     public static isDictionary(value: unknown): value is UnknownDictionary {
-        return value != null && typeof value === "object" && value?.constructor !== Array;
+        if (value != null && typeof value === "object" && (value as any).constructor !== Array) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**
