@@ -11,7 +11,7 @@ Say goodbye to `TypeError: Cannot read property 'key' of undefinied`.
 
 ## Install
 
-`npm i --save SamuelSchepp/safe-any#0.0.1`
+`npm i --save SamuelSchepp/safe-any#1.0.0`
 
 ### Dependencies
 

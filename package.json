@@ -1,6 +1,6 @@
 {
   "name": "safe-any",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "Safe interface to JSON and any objects written in TypeScript.",
   "main": "./out-tsc/index.js",
   "types": "./out-tsc/index.d.ts",
