@@ -31,4 +31,8 @@ jobs:
     - run: npm run test
     - run: npm run lint
     - run: npm run coverage
+    - name: Coveralls
+      uses: coverallsapp/github-action@master
+      with:
+        github-token: ${{ secrets.COVERALLS_TOKEN }}
     - run: npm run docs
