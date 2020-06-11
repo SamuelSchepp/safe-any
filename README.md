@@ -1,6 +1,6 @@
 # SafeAny
 
-[![Build Status](https://travis-ci.org/SamuelSchepp/safe-any.svg?branch=master)](https://travis-ci.org/SamuelSchepp/safe-any)
+![CI](https://github.com/SamuelSchepp/safe-any/workflows/CI/badge.svg)
 [![Coverage Status](https://coveralls.io/repos/github/SamuelSchepp/safe-any/badge.svg?branch=master)](https://coveralls.io/github/SamuelSchepp/safe-any?branch=master)
 [![Dependencies](https://david-dm.org/SamuelSchepp/safe-any.svg)](https://david-dm.org/)
 ![Node Version](https://img.shields.io/badge/node-%3E=%208.11-brightgreen.svg)
@@ -11,7 +11,17 @@ Say goodbye to `TypeError: Cannot read property 'key' of undefinied`.
 
 ## Install
 
-`npm i --save SamuelSchepp/safe-any`
+`npm i --save SamuelSchepp/safe-any#1.0.0`
+
+### Dependencies
+
+**Important**: Since this package is a TypeScript package, there is a peer dependency to `typescript`.
+Meet the requirement by installing TypeScript in your package first: `npm i --save-dev typescript`.
+
+> npm WARN safe-any@0.0.1 requires a peer of typescript@>= 3.8.0 but none is installed. You must install peer dependencies yourself.
+
+This package uses `postinstall` to compile it's source on install.
+
 
 ## Quick start
 
