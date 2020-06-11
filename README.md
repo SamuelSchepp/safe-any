@@ -11,7 +11,17 @@ Say goodbye to `TypeError: Cannot read property 'key' of undefinied`.
 
 ## Install
 
-`npm i --save SamuelSchepp/safe-any`
+`npm i --save SamuelSchepp/safe-any#0.0.1`
+
+### Dependencies
+
+**Important**: Since this package is a TypeScript package, there is a peer dependency to `typescript`.
+Meet the requirement by installing TypeScript in your package first: `npm i --save-dev typescript`.
+
+> npm WARN safe-any@0.0.1 requires a peer of typescript@>= 3.8.0 but none is installed. You must install peer dependencies yourself.
+
+This package uses `postinstall` to compile it's source on install.
+
 
 ## Quick start
 
