@@ -19,9 +19,6 @@
   ],
   "author": "Samuel Schepp",
   "license": "MIT",
-  "dependencies": {
-    "typescript": "^3.8.3"
-  },
   "devDependencies": {
     "@istanbuljs/nyc-config-typescript": "^1.0.1",
     "@types/assert": "^1.4.6",
@@ -36,6 +33,10 @@
     "nyc": "^15.0.1",
     "ts-node": "^8.10.1",
     "tslint": "^5.20.1",
-    "typedoc": "^0.15.1"
+    "typedoc": "^0.15.1",
+    "typescript": "^3.8.0"
+  },
+  "peerDependencies": {
+    "typescript": ">= 3.8.0"
   }
 }
