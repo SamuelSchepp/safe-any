@@ -36,22 +36,22 @@ export class SafeAny {
       this.type = Type.array;
     } else if (Tool.isDictionary(object)) {
       this.type = Type.dictionary;
-    } else  {
+    } else {
       this.type = Type.null;
     }
   }
 
   /**
-     * Parses the json literal using `JSON.parse()`.
-     *
-     * If the JSON failed to parse, a valid `SafeAny` object is still returned.
-     * The `type` property of this object has the value `Type.null`.
-     *
-     * Only use this, if the parse error can be ignored.
-     * This function does not throw.
-     *
-     * @param json A json string literal that should be parsed.
-     */
+   * Parses the json literal using `JSON.parse()`.
+   *
+   * If the JSON failed to parse, a valid `SafeAny` object is still returned.
+   * The `type` property of this object has the value `Type.null`.
+   *
+   * Only use this, if the parse error can be ignored.
+   * This function does not throw.
+   *
+   * @param json A json string literal that should be parsed.
+   */
   public static parseJSON(json: string): SafeAny {
     try {
       const data = JSON.parse(json) as unknown;
