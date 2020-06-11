@@ -1,14 +1,14 @@
-import { UnknownArray } from "./UnknownArray";
-import { UnknownDictionary } from "./UnknownDictionary";
-
 /**
  * Helper class for SafeAny implementation
  */
+import { Dictionary } from "./Dictionary";
+
 export class Tool {
 
   /**
    * Returns true, if the given value is a native string.
-   * @param value The value to check.
+   * @param {unknown} value The value to check.
+   * @returns {boolean} The result.
    */
   public static isString(value: unknown): value is string {
     return typeof value === "string" || value instanceof String;
@@ -16,7 +16,8 @@ export class Tool {
 
   /**
    * Returns true, if the given value is a native number.
-   * @param value The value to check.
+   * @param {unknown} value The value to check.
+   * @returns {boolean} The result.
    */
   public static isNumber(value: unknown): value is number {
     return typeof value === "number" && isFinite(value);
@@ -24,7 +25,8 @@ export class Tool {
 
   /**
    * Returns true, if the given value is a native boolean.
-   * @param value The value to check.
+   * @param {unknown} value The value to check.
+   * @returns {boolean} The result.
    */
   public static isBoolean(value: unknown): value is boolean {
     return typeof value === "boolean";
@@ -32,9 +34,10 @@ export class Tool {
 
   /**
    * Returns true, if the given value is a native array.
-   * @param value The value to check.
+   * @param {unknown} value The value to check.
+   * @returns {boolean} The result.
    */
-  public static isArray(value: unknown): value is UnknownArray {
+  public static isArray(value: unknown): value is unknown[] {
     if (value != null && typeof value === "object" && (value as Record<string, unknown>).constructor === Array) {
       return true;
     } else {
@@ -44,9 +47,10 @@ export class Tool {
 
   /**
    * Returns true, if the given value is a native dictionary.
-   * @param value The value to check.
+   * @param {unknown} value The value to check.
+   * @returns {boolean} The result.
    */
-  public static isDictionary(value: unknown): value is UnknownDictionary {
+  public static isDictionary(value: unknown): value is Dictionary<unknown> {
     if (value != null && typeof value === "object" && (value as Record<string, unknown>).constructor !== Array) {
       return true;
     } else {
@@ -57,11 +61,12 @@ export class Tool {
   /**
    * Maps every value of a dictionary.
    *
-   * @param dict The dictionary whose values to map.
-   * @param map The function that will be applied to every value of the dictionary,
+   * @param {Dictionary<A>} dict The dictionary whose values to map.
+   * @param {Function} map The function that will be applied to every value of the dictionary.
+   * @returns {Dictionary<B>} The new dictionary.
    */
-  public static mapValue<A, B>(dict: { [key: string]: A }, map: (value: A) => B): { [key: string]: B } {
-    const akku: { [key: string]: B } = {};
+  public static mapValue<A, B>(dict: Dictionary<A>, map: (value: A) => B): Dictionary<B> {
+    const akku: Dictionary<B> = {};
 
     Object.keys(dict).forEach((key: string) => {
       akku[key] = map(dict[key]);

@@ -1,32 +1,7 @@
-import assert from "assert";
+import { Person } from "./Person";
 import { SafeAny } from "../lib/SafeAny";
 import { Type } from "../lib/Type";
-
-class Address {
-  public readonly street: string;
-  public readonly postCode: string;
-  public readonly city: string;
-  public readonly country: string;
-
-  public constructor(json: SafeAny) {
-    this.street = json.get("street").stringValue();
-    this.postCode = json.get("postCode").stringValue();
-    this.city = json.get("city").stringValue();
-    this.country = json.get("country").stringValue();
-  }
-}
-
-class Person {
-  public readonly firstName: string;
-  public readonly lastName: string;
-  public readonly address: Address;
-
-  public constructor(json: SafeAny) {
-    this.firstName = json.get("firstName").stringValue();
-    this.lastName = json.get("lastName").stringValue();
-    this.address = new Address(json.get("address"));
-  }
-}
+import assert from "assert";
 
 describe("Demos", () => {
   it("should return \"John\"", () => {

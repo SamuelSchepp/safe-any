@@ -1,5 +1,5 @@
-import assert from "assert";
 import { Tool } from "../lib/Tool";
+import assert from "assert";
 
 describe("Tool.isBoolean", () => {
   it("should return false from \"hello\"", () => {

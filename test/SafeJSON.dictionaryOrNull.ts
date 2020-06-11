@@ -1,5 +1,5 @@
-import assert from "assert";
 import { SafeAny } from "../lib/SafeAny";
+import assert from "assert";
 
 describe("SafeAny.dictionaryOrNull()", () => {
   it("should return null from string", () => {

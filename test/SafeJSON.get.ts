@@ -1,6 +1,6 @@
-import assert from "assert";
 import { SafeAny } from "../lib/SafeAny";
 import { Type } from "../lib/Type";
+import assert from "assert";
 
 describe("SafeAny.get(key)", () => {
   it("should return \"value\"", () => {

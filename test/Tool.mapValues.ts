@@ -1,5 +1,5 @@
-import assert from "assert";
 import { Tool } from "../lib/Tool";
+import assert from "assert";
 
 describe("Tool.mapValues", () => {
   it("should return a dictionary with mapped values", () => {

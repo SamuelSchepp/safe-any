@@ -1,7 +1,6 @@
+import { Dictionary } from "./Dictionary";
 import { Tool } from "./Tool";
 import { Type } from "./Type";
-import { UnknownArray } from "./UnknownArray";
-import { UnknownDictionary } from "./UnknownDictionary";
 
 /**
  * A wrapper for `any` with a safe access interface.
@@ -21,7 +20,7 @@ export class SafeAny {
 
   /**
    * Default constructor to create the safe interface to `any`.
-   * @param object An object that is the result of a JSON parse or any literal.
+   * @param {unknown} object An object that is the result of a JSON parse or any literal.
    */
   public constructor(object: unknown) {
     this.raw = object;
@@ -50,7 +49,8 @@ export class SafeAny {
    * Only use this, if the parse error can be ignored.
    * This function does not throw.
    *
-   * @param json A json string literal that should be parsed.
+   * @param {string} json A json string literal that should be parsed.
+   * @returns {SafeAny} New instance
    */
   public static parseJSON(json: string): SafeAny {
     try {
@@ -72,7 +72,7 @@ export class SafeAny {
    * - `true`: `"true"`
    * - `false`: `"false"`
    *
-   * @return A string value or `null` if it cannot be converted.
+   * @returns {string | null} A string value or `null` if it cannot be converted.
    */
   public stringOrNull(): string | null {
     switch (this.type) {
@@ -105,7 +105,7 @@ export class SafeAny {
    * - `true`: `1`
    * - `false`: `0`
    *
-   * @return A number value or `null` if it cannot be converted.
+   * @returns {number | null} A number value or `null` if it cannot be converted.
    */
   public numberOrNull(): number | null {
     switch (this.type) {
@@ -144,7 +144,7 @@ export class SafeAny {
    * - `0`: `false`
    * - any other number: `true`
    *
-   * @return A number value or `null` if it cannot be converted.
+   * @returns {boolean | null} A number value or `null` if it cannot be converted.
    */
   public booleanOrNull(): boolean | null {
     switch (this.type) {
@@ -176,11 +176,11 @@ export class SafeAny {
   /**
    * Tries to return the given object as a dictionary.
    *
-   * @return A dictionary value or `null`.
+   * @returns {Dictionary<SafeAny> | null} A dictionary value or `null`.
    */
-  public dictionaryOrNull(): { [key: string]: SafeAny } | null {
+  public dictionaryOrNull(): Dictionary<SafeAny> | null {
     if (this.type === Type.dictionary) {
-      return Tool.mapValue(this.raw as UnknownDictionary, (value: unknown) => {
+      return Tool.mapValue(this.raw as Dictionary<unknown>, (value: unknown) => {
         return new SafeAny(value);
       });
     } else {
@@ -191,11 +191,11 @@ export class SafeAny {
   /**
    * Tries to return the given object as an array.
    *
-   * @return An array value or `null`.
+   * @returns {SafeAny[] | null} An array value or `null`.
    */
   public arrayOrNull(): SafeAny[] | null {
     if (this.type === Type.array) {
-      return (this.raw as UnknownArray).map((value: unknown) => {
+      return (this.raw as unknown[]).map((value: unknown) => {
         return new SafeAny(value);
       });
     } else {
@@ -211,7 +211,7 @@ export class SafeAny {
    *
    * See [[stringOrNull]] for conversion rules.
    *
-   * @returns A string value or `""`.
+   * @returns {string} A string value or `""`.
    */
   public stringValue(): string {
     return this.stringOrDefault("");
@@ -223,7 +223,7 @@ export class SafeAny {
    *
    * See [[numberOrNull]] for conversion rules.
    *
-   * @returns A number value or `0`.
+   * @returns {number} A number value or `0`.
    */
   public numberValue(): number {
     return this.numberOrDefault(0);
@@ -235,7 +235,7 @@ export class SafeAny {
    *
    * See [[booleanOrNull]] for conversion rules.
    *
-   * @returns A boolean value or `false`.
+   * @returns {boolean} A boolean value or `false`.
    */
   public booleanValue(): boolean {
     return this.booleanOrDefault(false);
@@ -247,9 +247,9 @@ export class SafeAny {
    *
    * The values are wrapped in `SafeAny`.
    *
-   * @returns A valid dictionary.
+   * @returns {Dictionary<SafeAny>} A valid dictionary.
    */
-  public dictionaryValue(): { [key: string]: SafeAny } {
+  public dictionaryValue(): Dictionary<SafeAny> {
     const dictionary = this.dictionaryOrNull();
     if (dictionary == null) {
       return {};
@@ -264,7 +264,7 @@ export class SafeAny {
    *
    * The values are wrapped in `SafeAny`.
    *
-   * @returns A valid array.
+   * @returns {SafeAny[]} A valid array.
    */
   public arrayValue(): SafeAny[] {
     const array = this.arrayOrNull();
@@ -283,7 +283,8 @@ export class SafeAny {
    *
    * See [[stringOrNull]] for conversion rules.
    *
-   * @param value The fallback value that will be returned if conversion failed.
+   * @param {string} value The fallback value that will be returned if conversion failed.
+   * @returns {string} The string value.
    */
   public stringOrDefault(value: string): string {
     const s = this.stringOrNull();
@@ -300,7 +301,8 @@ export class SafeAny {
    *
    * See [[numberOrNull]] for conversion rules.
    *
-   * @param value The fallback value that will be returned if conversion failed.
+   * @param {number} value The fallback value that will be returned if conversion failed.
+   * @returns {number} A number value.
    */
   public numberOrDefault(value: number): number {
     const n = this.numberOrNull();
@@ -317,7 +319,8 @@ export class SafeAny {
    *
    * See [[booleanOrNull]] for conversion rules.
    *
-   * @param value The fallback value that will be returned if conversion failed.
+   * @param {boolean} value The fallback value that will be returned if conversion failed.
+   * @returns {boolean} A boolean value.
    */
   public booleanOrDefault(value: boolean): boolean {
     const b = this.booleanOrNull();
@@ -341,18 +344,19 @@ export class SafeAny {
    * `SafeAny(null)` will be returned if the child cannot be accessed, or the type of `key` is not compatible with
    * the subscript signature of the root object.
    *
-   * @param key The key that should be used to access the child object.
+   * @param {string | number} key The key that should be used to access the child object.
+   * @returns {SafeAny} the new instance.
    */
   public get(key: string | number): SafeAny {
     if (Tool.isString(key)) {
       if (this.type === Type.dictionary) {
-        return new SafeAny((this.raw as UnknownDictionary)[key]);
+        return new SafeAny((this.raw as Dictionary<unknown>)[key]);
       } else {
         return new SafeAny(null);
       }
     } else if (Tool.isNumber(key)) {
       if (this.type === Type.array) {
-        return new SafeAny((this.raw as UnknownArray)[key]);
+        return new SafeAny((this.raw as unknown[])[key]);
       } else {
         return new SafeAny(null);
       }
@@ -375,6 +379,8 @@ export class SafeAny {
    * // Do this
    * safeObject.get("jsonString").parsed().get(0)
    * ```
+   *
+   * @returns {SafeAny} The new instance.
    */
   public parsed(): SafeAny {
     if (this.type === Type.string) {
@@ -390,8 +396,10 @@ export class SafeAny {
   }
 
   /**
-   * @returns The internal storage object, which is of type any.
+   * Returns the internal storage object.
    * Use with caution.
+   *
+   * @returns {unknown} The internal storage object.
    */
   public native(): unknown {
     return this.raw;
