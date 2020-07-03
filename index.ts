@@ -1,2 +1,2 @@
-export { SafeAny } from "./lib/SafeAny";
+export { Any } from "./lib/Any";
 export { Type } from "./lib/Type";

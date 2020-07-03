@@ -1,5 +1,5 @@
 import { Person } from "./Person";
-import { SafeAny } from "../lib/SafeAny";
+import { Any } from "../lib/Any";
 import { Type } from "../lib/Type";
 import assert from "assert";
 
@@ -13,7 +13,7 @@ describe("Demos", () => {
         },
       ],
     };
-    const object = new SafeAny(parsedJSON);
+    const object = new Any(parsedJSON);
     const value = object
       .get("persons")
       .get(0)
@@ -50,8 +50,8 @@ describe("Demos", () => {
       ]
     `;
 
-    const arr = SafeAny.parseJSON(json);
-    const persons = arr.arrayValue().map((obj: SafeAny) => {
+    const arr = Any.parseJSON(json);
+    const persons = arr.arrayValue().map((obj: Any) => {
       return new Person(obj);
     });
 
@@ -81,8 +81,8 @@ describe("Demos", () => {
       ]
     `;
 
-    const arr = SafeAny.parseJSON(json);
-    const persons = arr.arrayValue().map((obj: SafeAny) => {
+    const arr = Any.parseJSON(json);
+    const persons = arr.arrayValue().map((obj: Any) => {
       return new Person(obj);
     });
 
@@ -115,13 +115,13 @@ describe("Demos", () => {
       ],
     };
 
-    const safeObject = new SafeAny(object);
+    const safeObject = new Any(object);
     const nameOfObject2 = safeObject.get("myArray").get(1).get("name").stringValue();
 
     assert.deepStrictEqual(nameOfObject2, "object2");
   });
   it("should be a dictionary", () => {
-    const wrappedDict = new SafeAny({ key: "value" });
+    const wrappedDict = new Any({ key: "value" });
     if (wrappedDict.type === Type.dictionary) {
       const value = wrappedDict.get("key").stringValue();
       assert.deepStrictEqual(value, "value");

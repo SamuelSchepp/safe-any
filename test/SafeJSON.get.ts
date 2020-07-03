@@ -1,10 +1,10 @@
-import { SafeAny } from "../lib/SafeAny";
+import { Any } from "../lib/Any";
 import { Type } from "../lib/Type";
 import assert from "assert";
 
 describe("SafeAny.get(key)", () => {
   it("should return \"value\"", () => {
-    const sj = new SafeAny({
+    const sj = new Any({
       level1: {
         level2: {
           key: "value",
@@ -14,7 +14,7 @@ describe("SafeAny.get(key)", () => {
     assert.deepStrictEqual(sj.get("level1").get("level2").get("key").stringValue(), "value");
   });
   it("should return \"world\"", () => {
-    const sj = new SafeAny({
+    const sj = new Any({
       level1: {
         level2: [
           {},
@@ -28,7 +28,7 @@ describe("SafeAny.get(key)", () => {
     assert.deepStrictEqual(sj.get("level1").get("level2").get(1).get("hello").stringValue(), "world");
   });
   it("should return null", () => {
-    const sj = new SafeAny({
+    const sj = new Any({
       level1: {},
     });
     assert.deepStrictEqual(sj.get("level1").get("level2").get(1).get("hello").stringOrNull(), null);
@@ -42,7 +42,7 @@ describe("SafeAny.get(key)", () => {
         },
       ],
     };
-    const object = new SafeAny(parsedJSON);
+    const object = new Any(parsedJSON);
     const value = object
       .get("persons")
       .get(0)
@@ -51,7 +51,7 @@ describe("SafeAny.get(key)", () => {
     assert.deepStrictEqual(value, "John");
   });
   it("should return \"value\"", () => {
-    const sj = new SafeAny(
+    const sj = new Any(
       [
         [],
         [
@@ -67,7 +67,7 @@ describe("SafeAny.get(key)", () => {
     assert.deepStrictEqual(sj.get(1).get(0).get(1).stringValue(), "value");
   });
   it("should return \"world\"", () => {
-    const sj = new SafeAny(
+    const sj = new Any(
       [
         {
           level1: [
@@ -82,13 +82,13 @@ describe("SafeAny.get(key)", () => {
     assert.deepStrictEqual(sj.get(0).get("level1").get(3).stringValue(), "world");
   });
   it("should return null", () => {
-    const sj = new SafeAny(
+    const sj = new Any(
       [],
     );
     assert.deepStrictEqual(sj.get(0).get("level1").get(3).stringOrNull(), null);
   });
   it("should return null at bad array index", () => {
-    const sj = new SafeAny(
+    const sj = new Any(
       [
         1,
         2,
@@ -102,7 +102,7 @@ describe("SafeAny.get(key)", () => {
     assert.deepStrictEqual(sj.get(8).numberOrNull(), null);
   });
   it("should return null with bad key type", () => {
-    const sj = new SafeAny({
+    const sj = new Any({
       hello: "world",
     });
     // eslint-disable-next-line @typescript-eslint/no-explicit-any

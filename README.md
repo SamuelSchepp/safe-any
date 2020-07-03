@@ -1,8 +1,8 @@
-# SafeAny
+# typed-any-access
 
-![CI](https://github.com/SamuelSchepp/safe-any/workflows/CI/badge.svg)
-[![Coverage Status](https://coveralls.io/repos/github/SamuelSchepp/safe-any/badge.svg?branch=master)](https://coveralls.io/github/SamuelSchepp/safe-any?branch=master)
-[![Dependencies](https://david-dm.org/SamuelSchepp/safe-any.svg)](https://david-dm.org/)
+![CI](https://github.com/SamuelSchepp/typed-any-access/workflows/CI/badge.svg)
+[![Coverage Status](https://coveralls.io/repos/github/SamuelSchepp/typed-any-access/badge.svg?branch=master)](https://coveralls.io/github/SamuelSchepp/typed-any-access?branch=master)
+[![Dependencies](https://david-dm.org/SamuelSchepp/typed-any-access.svg)](https://david-dm.org/)
 ![Node Version](https://img.shields.io/badge/node-%3E=%208.11-brightgreen.svg)
 
 Safe wrapper for ```any``` and JSON in TypeScript.
@@ -11,22 +11,12 @@ Say goodbye to `TypeError: Cannot read property 'key' of undefinied`.
 
 ## Install
 
-`npm i --save SamuelSchepp/safe-any#1.0.0`
-
-### Dependencies
-
-**Important**: Since this package is a TypeScript package, there is a peer dependency to `typescript`.
-Meet the requirement by installing TypeScript in your package first: `npm i --save-dev typescript`.
-
-> npm WARN safe-any@0.0.1 requires a peer of typescript@>= 3.8.0 but none is installed. You must install peer dependencies yourself.
-
-This package uses `postinstall` to compile it's source on install.
-
+`npm i --save typed-any-access`
 
 ## Quick start
 
 ```typescript
-import { SafeAny } from "safe-any";
+import { Any } from "typed-any-access";
 
 // Unsafe object
 const parsedJSON: any = {
@@ -39,7 +29,7 @@ const parsedJSON: any = {
 };
 
 // Create safe object
-const object = new SafeAny(parsedJSON);
+const object = new Any(parsedJSON);
 
 // Safe access
 const value = object
@@ -57,9 +47,9 @@ This libary makes access to objects of type `any` type-safe by providing default
 
 ### Getting started
 
-Create a `SafeAny` object by either wrapping an `any` or parsing a JSON literal.
-If the parsing fails, `new SafeAny(null)` will be returned.
-`SafeAny.parseJSON()` does not throw.
+Create a `Any` object by either wrapping an `any` or parsing a JSON literal.
+If the parsing fails, `new Any(null)` will be returned.
+`Any.parseJSON()` does not throw.
 
 ```typescript
 // Unsafe object, which may be the result of JSON.parse().
@@ -67,18 +57,18 @@ const unsafeObject: any = {
   ...
 };
 // Safe wrap
-const safeObject = new SafeAny(unsafeObject);
+const safeObject = new Any(unsafeObject);
 ```
 
 ```typescript
 // Parse JSON literal and wrap safely
-const safeObject = SafeAny.parseJSON("{ 'key': 'value' }");
+const safeObject = Any.parseJSON("{ 'key': 'value' }");
 ```
 
 ### Referencing sub objects
 
 ```typescript
-get(key: string | number): SafeAny
+get(key: string | number): Any
 ```
 
 ```typescript
@@ -90,7 +80,7 @@ Instead of accesing sub objects using the unsafe subscript access (`object['key'
 If the root object is an array, use `get(2)` to access the 3rd value.
 If the root object is a dictionary, use `get("key")` to access the value that is defined at the key `key`.
 If the sub object cannot be accessed, because it does not exist or the root object's type is incompatible,
-`new SafeAny(null)` is returned.
+`new Any(null)` is returned.
 
 ```typescript
 const object = {
@@ -107,7 +97,7 @@ const object = {
     ],
 };
 
-const safeObject = new SafeAny(object);
+const safeObject = new Any(object);
 const nameOfObject2 = safeObject
   .get("myArray")
   .get(1)
@@ -125,8 +115,8 @@ const nameOfObject2 = safeObject
 stringOrNull(): string | null
 numberOrNull(): number | null
 booleanOrNull(): boolean | null
-dictionaryOrNull(): { [key: string]: SafeAny } | null
-arrayOrNull(): SafeAny[] | null
+dictionaryOrNull(): { [key: string]: Any } | null
+arrayOrNull(): Any[] | null
 ```
 
 ### Reading a value with given fallback
@@ -147,8 +137,8 @@ booleanOrDefault(value: boolean): boolean
 stringValue(): string
 numberValue(): number
 booleanValue(): boolean
-dictionaryValue(): { [key: string]: SafeAny }
-arrayValue(): SafeAny[]
+dictionaryValue(): { [key: string]: Any }
+arrayValue(): Any[]
 ```
 
 | Function            | Fallback Value |
@@ -173,9 +163,9 @@ Possible types are:
 - `null`
 
 ```typescript
-import { SafeAny, Type } from "safe-any";
+import { Any, Type } from "typed-any-access";
 
-const wrappedDict = new SafeAny({ key: "value" });
+const wrappedDict = new Any({ key: "value" });
 
 if (wrappedDict.type === Type.dictionary) {
   const entry = wrappedDict.get("key");
@@ -196,10 +186,10 @@ This replaces the unhandy manual approach of breaking the operator chain.
 const obj = {
   jsonString: "{ \"hello\": \"world\" }",
 };
-const safeObject = new SafeAny(obj);
+const safeObject = new Any(obj);
 
 // Instead of
-SafeAny.parsedJSON(safeObject.get("jsonString").stringValue()).get("hello").stringValue();
+Any.parsedJSON(safeObject.get("jsonString").stringValue()).get("hello").stringValue();
 
 // Do this
 safeObject.get("jsonString").parsed().get("hello").stringValue();

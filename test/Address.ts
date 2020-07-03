@@ -1,4 +1,4 @@
-import { SafeAny } from "../lib/SafeAny";
+import { Any } from "../lib/Any";
 
 export class Address {
   public readonly street: string;
@@ -6,7 +6,7 @@ export class Address {
   public readonly city: string;
   public readonly country: string;
 
-  public constructor(json: SafeAny) {
+  public constructor(json: Any) {
     this.street = json.get("street").stringValue();
     this.postCode = json.get("postCode").stringValue();
     this.city = json.get("city").stringValue();

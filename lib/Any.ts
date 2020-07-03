@@ -5,7 +5,7 @@ import { Type } from "./Type";
 /**
  * A wrapper for `any` with a safe access interface.
  */
-export class SafeAny {
+export class Any {
 
   /**
    * The type of the current root object.
@@ -43,21 +43,21 @@ export class SafeAny {
   /**
    * Parses the json literal using `JSON.parse()`.
    *
-   * If the JSON failed to parse, a valid `SafeAny` object is still returned.
+   * If the JSON failed to parse, a valid `Any` object is still returned.
    * The `type` property of this object has the value `Type.null`.
    *
    * Only use this, if the parse error can be ignored.
    * This function does not throw.
    *
    * @param {string} json A json string literal that should be parsed.
-   * @returns {SafeAny} New instance
+   * @returns {Any} New instance
    */
-  public static parseJSON(json: string): SafeAny {
+  public static parseJSON(json: string): Any {
     try {
       const data = JSON.parse(json) as unknown;
-      return new SafeAny(data);
+      return new Any(data);
     } catch {
-      return new SafeAny(null);
+      return new Any(null);
     }
   }
 
@@ -176,12 +176,12 @@ export class SafeAny {
   /**
    * Tries to return the given object as a dictionary.
    *
-   * @returns {Dictionary<SafeAny> | null} A dictionary value or `null`.
+   * @returns {Dictionary<Any> | null} A dictionary value or `null`.
    */
-  public dictionaryOrNull(): Dictionary<SafeAny> | null {
+  public dictionaryOrNull(): Dictionary<Any> | null {
     if (this.type === Type.dictionary) {
       return Tool.mapValue(this.raw as Dictionary<unknown>, (value: unknown) => {
-        return new SafeAny(value);
+        return new Any(value);
       });
     } else {
       return null;
@@ -191,12 +191,12 @@ export class SafeAny {
   /**
    * Tries to return the given object as an array.
    *
-   * @returns {SafeAny[] | null} An array value or `null`.
+   * @returns {Any[] | null} An array value or `null`.
    */
-  public arrayOrNull(): SafeAny[] | null {
+  public arrayOrNull(): Any[] | null {
     if (this.type === Type.array) {
       return (this.raw as unknown[]).map((value: unknown) => {
-        return new SafeAny(value);
+        return new Any(value);
       });
     } else {
       return null;
@@ -245,11 +245,11 @@ export class SafeAny {
    * Tries to return the given object as a native dictionary.
    * If the the object is no dictionary, `{}` is returned.
    *
-   * The values are wrapped in `SafeAny`.
+   * The values are wrapped in `Any`.
    *
-   * @returns {Dictionary<SafeAny>} A valid dictionary.
+   * @returns {Dictionary<Any>} A valid dictionary.
    */
-  public dictionaryValue(): Dictionary<SafeAny> {
+  public dictionaryValue(): Dictionary<Any> {
     const dictionary = this.dictionaryOrNull();
     if (dictionary == null) {
       return {};
@@ -262,11 +262,11 @@ export class SafeAny {
    * Tries to return the given object as a native array.
    * If the the object is no array, `[]` is returned.
    *
-   * The values are wrapped in `SafeAny`.
+   * The values are wrapped in `Any`.
    *
-   * @returns {SafeAny[]} A valid array.
+   * @returns {Any[]} A valid array.
    */
-  public arrayValue(): SafeAny[] {
+  public arrayValue(): Any[] {
     const array = this.arrayOrNull();
     if (array == null) {
       return [];
@@ -341,27 +341,27 @@ export class SafeAny {
    * If `key` is a number, the root object is considered to be an array and the value at that index is beeing wrapped
    * and returned.
    *
-   * `SafeAny(null)` will be returned if the child cannot be accessed, or the type of `key` is not compatible with
+   * `Any(null)` will be returned if the child cannot be accessed, or the type of `key` is not compatible with
    * the subscript signature of the root object.
    *
    * @param {string | number} key The key that should be used to access the child object.
-   * @returns {SafeAny} the new instance.
+   * @returns {Any} the new instance.
    */
-  public get(key: string | number): SafeAny {
+  public get(key: string | number): Any {
     if (Tool.isString(key)) {
       if (this.type === Type.dictionary) {
-        return new SafeAny((this.raw as Dictionary<unknown>)[key]);
+        return new Any((this.raw as Dictionary<unknown>)[key]);
       } else {
-        return new SafeAny(null);
+        return new Any(null);
       }
     } else if (Tool.isNumber(key)) {
       if (this.type === Type.array) {
-        return new SafeAny((this.raw as unknown[])[key]);
+        return new Any((this.raw as unknown[])[key]);
       } else {
-        return new SafeAny(null);
+        return new Any(null);
       }
     } else {
-      return new SafeAny(null);
+      return new Any(null);
     }
   }
 
@@ -375,18 +375,18 @@ export class SafeAny {
    * It replaces the unhandy manual approach of breaking the operator chain.
    * ```typescript
    * // Instead of
-   * SafeAny.parsedJSON(safeObject.get("jsonString").stringValue()).get(0)
+   * Any.parsedJSON(safeObject.get("jsonString").stringValue()).get(0)
    * // Do this
    * safeObject.get("jsonString").parsed().get(0)
    * ```
    *
-   * @returns {SafeAny} The new instance.
+   * @returns {Any} The new instance.
    */
-  public parsed(): SafeAny {
+  public parsed(): Any {
     if (this.type === Type.string) {
       try {
         const parsed = JSON.parse(this.raw as string) as unknown;
-        return new SafeAny(parsed);
+        return new Any(parsed);
       } catch {
         return this;
       }

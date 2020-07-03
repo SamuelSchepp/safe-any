@@ -1,5 +1,5 @@
 {
-  "name": "safe-any",
+  "name": "typed-any-access",
   "version": "1.0.0",
   "description": "Safe interface to JSON and any objects written in TypeScript.",
   "main": "./out-tsc/index.js",
@@ -9,17 +9,23 @@
     "lint": "eslint index.ts lib/**/*.ts test/**/*.ts",
     "test": "nyc mocha",
     "coverage": "nyc --reporter=lcovonly mocha",
-    "docs": "typedoc --out docs ./lib",
-    "postinstall": "npm run build"
+    "docs": "typedoc --out docs ./lib"
   },
   "keywords": [
     "json",
     "typescript",
     "any"
   ],
+  "files": [
+    "out-tsc/**",
+    "package.json",
+    "package-lock.json",
+    "README.md",
+    "LICENSE"
+  ],
   "author": "Samuel Schepp",
   "license": "MIT",
-  "repository": "https://github.com/SamuelSchepp/safe-any",
+  "repository": "https://github.com/SamuelSchepp/typed-any-access",
   "devDependencies": {
     "@istanbuljs/nyc-config-typescript": "^1.0.1",
     "@types/assert": "^1.4.6",
@@ -35,8 +41,5 @@
     "ts-node": "^8.10.1",
     "typedoc": "^0.15.1",
     "typescript": "^3.8.0"
-  },
-  "peerDependencies": {
-    "typescript": ">= 3.8.0"
   }
 }
