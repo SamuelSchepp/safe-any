@@ -7,7 +7,7 @@
 
 Safe wrapper for ```any``` and JSON in TypeScript.
 
-Say goodbye to `TypeError: Cannot read property 'key' of undefinied`.
+Say goodbye to `TypeError: Cannot read property 'key' of undefined`.
 
 ## Install
 
@@ -43,11 +43,11 @@ const value = object
 
 ## Guide
 
-This libary makes access to objects of type `any` type-safe by providing default values and a typed interface.
+This library makes access to objects of type `any` type-safe by providing default values and a typed interface.
 
 ### Getting started
 
-Create a `Any` object by either wrapping an `any` or parsing a JSON literal.
+Create an `Any` object by either wrapping an `any` or parsing a JSON literal.
 If the parsing fails, `new Any(null)` will be returned.
 `Any.parseJSON()` does not throw.
 
@@ -76,7 +76,7 @@ const subValue1 = safeDictionary.get("key");
 const subValue2 = safeArray.get(0);
 ```
 
-Instead of accesing sub objects using the unsafe subscript access (`object['key']`), the `get()` operator is used.
+Instead of accessing sub objects using the unsafe subscript access (`object['key']`), the `get()` operator is used.
 If the root object is an array, use `get(2)` to access the 3rd value.
 If the root object is a dictionary, use `get("key")` to access the value that is defined at the key `key`.
 If the sub object cannot be accessed, because it does not exist or the root object's type is incompatible,
@@ -151,7 +151,7 @@ arrayValue(): Any[]
 
 ### Getting the object's type
 
-The `type` property can be used to determin the object's type.
+The `type` property can be used to determine the object's type.
 This is useful for custom parsing of tree structures or fallback mechanics.
 
 Possible types are:
