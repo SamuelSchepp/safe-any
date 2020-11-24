@@ -36,4 +36,7 @@ jobs:
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
     - run: npm run docs
-    - run: npm outdated
+    - uses: actions/upload-artifact@v2
+    with:
+      name: Docs
+      path: docs
