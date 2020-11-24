@@ -36,3 +36,4 @@ jobs:
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
     - run: npm run docs
+    - run: npn outdated
