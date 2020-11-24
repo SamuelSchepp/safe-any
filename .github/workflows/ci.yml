@@ -37,6 +37,6 @@ jobs:
         github-token: ${{ secrets.GITHUB_TOKEN }}
     - run: npm run docs
     - uses: actions/upload-artifact@v2
-    with:
-      name: Docs
-      path: docs
+      with:
+        name: Docs
+        path: docs
